@@ -9,22 +9,22 @@
 
 angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
 
-.run(function ($ionicPlatform) {
-    $ionicPlatform.ready(function () {
+.run(function($ionicPlatform) {
+    $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
         if (window.cordova && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         }
         if (window.StatusBar) {
-            // org.apache.cordova.statusbar required
-            StatusBar.styleDefault();
+            StatusBar.overlaysWebView(true);
+            StatusBar.styleLightContent();
         }
     });
 })
 
 
-.config(function ($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider) {
 
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router
@@ -101,15 +101,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
             }
         }
     })
-    .state('tab.producthome', {
-        url: '/home/product/:pid',
-        views: {
-            'tab-home': {
-                templateUrl: 'templates/shop-product.html',
-                controller: 'ProductCtrl'
+        .state('tab.producthome', {
+            url: '/home/product/:pid',
+            views: {
+                'tab-home': {
+                    templateUrl: 'templates/shop-product.html',
+                    controller: 'ProductCtrl'
+                }
             }
-        }
-    })
+        })
 
     .state('tab.lookbook', {
         url: '/lookbook',
@@ -166,15 +166,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
             }
         })
 
-        .state('tab.wishlist', {
-            url: '/account/wishlist',
-            views: {
-                'tab-account': {
-                    templateUrl: 'templates/account-wishlist.html',
-                    controller: 'WishlistCtrl'
-                }
+    .state('tab.wishlist', {
+        url: '/account/wishlist',
+        views: {
+            'tab-account': {
+                templateUrl: 'templates/account-wishlist.html',
+                controller: 'WishlistCtrl'
             }
-        })
+        }
+    })
 
     .state('tab.contact', {
         url: '/contact',
@@ -221,47 +221,41 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
 
 })
 
-.filter('convertprice', function () {
-    return function (input) {
-        var price=parseFloat(input);
-        if(price<0)
-        {
+.filter('convertprice', function() {
+    return function(input) {
+        var price = parseFloat(input);
+        if (price < 0) {
             return 0;
         }
-        var currencyshow="Rs";
-        for(var i=0;i<conversionrate.length;i++)
-        {
-            if(conversionrate[i].name==currency)
-            {
+        var currencyshow = "Rs";
+        for (var i = 0; i < conversionrate.length; i++) {
+            if (conversionrate[i].name == currency) {
                 //console.log("currency: "+currency+" price ini: "+price+" price new: "+parseFloat(conversionrate[i].conversionrate)*price);
-                if(currency=="USD")
-                {
-                    currencyshow="Rs";
+                if (currency == "USD") {
+                    currencyshow = "Rs";
+                } else if (currency == "EURO") {
+                    currencyshow = "€";
                 }
-                else if(currency=="EURO")
-                {
-                    currencyshow="€";
-                }
-                return currencyshow+" "+(parseFloat(conversionrate[i].conversionrate)*price).toFixed(2);
+                return currencyshow + " " + (parseFloat(conversionrate[i].conversionrate) * price).toFixed(2);
             }
         }
     };
 })
 
 
-.filter('imagepath', function () {
-  return function (input) {
-      return "http://magicmirrornew.appspot.com/showimage?size=300&image=gs://magicmirroruploads/uploads/"+input.trim();
-  };
+.filter('imagepath', function() {
+    return function(input) {
+        return "http://magicmirrornew.appspot.com/showimage?size=300&image=gs://magicmirroruploads/uploads/" + input.trim();
+    };
 })
-.filter('imagepathbig', function () {
-  return function (input) {
-      return "http://magicmirrornew.appspot.com/showimage?size=800&image=gs://magicmirroruploads/uploads/"+input.trim();
-  };
-})
-.filter('inSlicesOf', ['$rootScope',
-         function ($rootScope) {
-            makeSlices = function (items, count) {
+    .filter('imagepathbig', function() {
+        return function(input) {
+            return "http://magicmirrornew.appspot.com/showimage?size=800&image=gs://magicmirroruploads/uploads/" + input.trim();
+        };
+    })
+    .filter('inSlicesOf', ['$rootScope',
+        function($rootScope) {
+            makeSlices = function(items, count) {
                 if (!count)
                     count = 3;
 
@@ -285,20 +279,21 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
             };
 
             return makeSlices;
-         }])
-.filter('noFractionCurrency',
-                [ '$filter', '$locale',
-                 function(filter, locale) {
-                     var currencyFilter = filter('currency');
-                     var formats = locale.NUMBER_FORMATS;
-                     return function(amount, currencySymbol) {
-                         var value = currencyFilter(amount, currencySymbol);
-                         var sep = value.indexOf(formats.DECIMAL_SEP);
-                         if(amount >= 0) {
-                             return value.substring(0, sep);
-                         }
-                         return value.substring(0, sep) + ')';
-                     };
-                 } ]);
+        }
+    ])
+    .filter('noFractionCurrency', ['$filter', '$locale',
+        function(filter, locale) {
+            var currencyFilter = filter('currency');
+            var formats = locale.NUMBER_FORMATS;
+            return function(amount, currencySymbol) {
+                var value = currencyFilter(amount, currencySymbol);
+                var sep = value.indexOf(formats.DECIMAL_SEP);
+                if (amount >= 0) {
+                    return value.substring(0, sep);
+                }
+                return value.substring(0, sep) + ')';
+            };
+        }
+    ]);
 
 ;
