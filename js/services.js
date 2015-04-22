@@ -7,9 +7,9 @@ var conversionrate = [{
     isdefault: "1"
 }];
 //$.holdReady(true);
-//$.getJSON(adminurl + "getconversionrates", {}, function(data) {
-//    conversionrate = data;
-//});
+$.getJSON(adminurl + "getconversionrates", {}, function(data) {
+    conversionrate = data;
+});
 
 
 var lat = 0;
