@@ -7,22 +7,20 @@ var conversionrate = [{
     isdefault: "1"
 }];
 //$.holdReady(true);
-$.getJSON(adminurl + "getconversionrates", {}, function (data) {
-
-    conversionrate = data;
-    //console.log("Conversion Rate");
-});
+//$.getJSON(adminurl + "getconversionrates", {}, function(data) {
+//    conversionrate = data;
+//});
 
 
 var lat = 0;
 var long = 0;
 var currency = "GBP";
 var country = false;
-var showError = function (data) {
+var showError = function(data) {
     console.log(data);
     $.holdReady(false);
 };
-var showlocationdata = function (data, status) {
+var showlocationdata = function(data, status) {
     console.log("in location success");
     console.log(data);
     var address = data.results[0].address_components;
@@ -33,15 +31,15 @@ var showlocationdata = function (data, status) {
 
 
             var countries = ['AL', 'AD', 'AM', 'AT', 'BY', 'BE', 'BA', 'BG', 'CH', 'CY', 'CZ', 'DE',
-        'DK', 'EE', 'ES', 'FO', 'FI', 'FR', 'GE', 'GI', 'GR', 'HU', 'HR',
-        'IE', 'IS', 'IT', 'LT', 'LU', 'LV', 'MC', 'MK', 'MT', 'NO', 'NL', 'PL',
-        'PT', 'RO', 'RU', 'SE', 'SI', 'SK', 'SM', 'TR', 'UA', 'VA'
-      ];
+                'DK', 'EE', 'ES', 'FO', 'FI', 'FR', 'GE', 'GI', 'GR', 'HU', 'HR',
+                'IE', 'IS', 'IT', 'LT', 'LU', 'LV', 'MC', 'MK', 'MT', 'NO', 'NL', 'PL',
+                'PT', 'RO', 'RU', 'SE', 'SI', 'SK', 'SM', 'TR', 'UA', 'VA'
+            ];
 
             if (countries.indexOf(country) >= 0) {
                 country = "EUROPE";
             }
-            console.log("Country ////////////////////////");
+            console.log("Country");
             //case1 : short name: GB
             console.log(country);
             if (country == "GB") {
@@ -58,7 +56,7 @@ var showlocationdata = function (data, status) {
     //$.holdReady(false);
 };
 
-var ongettingdata = function (data) {
+var ongettingdata = function(data) {
     console.log("in location success");
     console.log(data);
     country = data.country_code;
@@ -69,10 +67,10 @@ var ongettingdata = function (data) {
 
 
         var countries = ['AL', 'AD', 'AM', 'AT', 'BY', 'BE', 'BA', 'BG', 'CH', 'CY', 'CZ', 'DE',
-      'DK', 'EE', 'ES', 'FO', 'FI', 'FR', 'GE', 'GI', 'GR', 'HU', 'HR',
-      'IE', 'IS', 'IT', 'LT', 'LU', 'LV', 'MC', 'MK', 'MT', 'NO', 'NL', 'PL',
-      'PT', 'RO', 'RU', 'SE', 'SI', 'SK', 'SM', 'TR', 'UA', 'VA'
-    ];
+            'DK', 'EE', 'ES', 'FO', 'FI', 'FR', 'GE', 'GI', 'GR', 'HU', 'HR',
+            'IE', 'IS', 'IT', 'LT', 'LU', 'LV', 'MC', 'MK', 'MT', 'NO', 'NL', 'PL',
+            'PT', 'RO', 'RU', 'SE', 'SI', 'SK', 'SM', 'TR', 'UA', 'VA'
+        ];
 
         if (countries.indexOf(country) >= 0) {
             country = "EUROPE";
@@ -125,7 +123,7 @@ CommonCode();
 
 var myservices = angular.module('myservices', [])
 
-.factory('MyServices', function ($http, $location) {
+.factory('MyServices', function($http, $location) {
     var obj = {};
     obj.badge = 0;
     var retailer = 0;
@@ -134,31 +132,31 @@ var myservices = angular.module('myservices', [])
     var coupondetails = $.jStorage.get("coupon");
     var discount = $.jStorage.get("coupon");
     return {
-        getobj: function () {
+        getobj: function() {
             return obj;
         },
-        setobj: function (val) {
+        setobj: function(val) {
             obj.badge = val;
         },
-        getuseremail: function () {
+        getuseremail: function() {
             return useremail;
         },
-        setuseremail: function (user) {
+        setuseremail: function(user) {
             useremail = user;
         },
-        getcoupondetails: function () {
+        getcoupondetails: function() {
             return coupondetails;
         },
-        setcoupondetails: function (coupon) {
+        setcoupondetails: function(coupon) {
             $.jStorage.set("coupon", coupon);
             coupondetails = coupon;
         },
-        getdiscountcoupon: function (couponcode) {
+        getdiscountcoupon: function(couponcode) {
             return $http.post(adminurl + 'getdiscountcoupon?couponcode=' + couponcode, {}, {
                 withCredentials: true
             });
         },
-        getproductdetails: function (product, category) {
+        getproductdetails: function(product, category) {
             return $http.get(adminurl + 'getproductdetails', {
                 params: {
                     product: product
@@ -167,7 +165,7 @@ var myservices = angular.module('myservices', [])
                 withCredentials: true
             });
         },
-        getproductbycategory: function (category, pageno) {
+        getproductbycategory: function(category, pageno) {
             return $http.get(adminurl + 'getproductbycategory', {
                 params: {
                     pageno: pageno,
@@ -177,40 +175,40 @@ var myservices = angular.module('myservices', [])
                 withCredentials: true
             });
         },
-        addtocart: function (id, name, price, quantity) {
+        addtocart: function(id, name, price, quantity) {
             return $http.post(adminurl + 'addtocart?product=' + id + '&productname=' + name + "&quantity=" + quantity + "&price=" + price, {}, {
                 withCredentials: true
             });
         },
-        getcart: function () {
+        getcart: function() {
             return $http.post(adminurl + 'showcart', {}, {
                 withCredentials: true
             });
             //return cart;
         },
-        gettotalcart: function () {
+        gettotalcart: function() {
             return $http.post(adminurl + 'totalitemcart', {}, {
                 withCredentials: true
             });
             //return cart;
         },
-        totalcart: function () {
+        totalcart: function() {
             return $http.post(adminurl + 'totalcart', {}, {
                 withCredentials: true
             });
             //return cart;
         },
-        deletecart: function (id) {
+        deletecart: function(id) {
 
             subtotal = this.calcsubtotal();
             return subtotal;
         },
-        deletecartfromsession: function (id) {
+        deletecartfromsession: function(id) {
             return $http.post(adminurl + 'deletecart?id=' + id, {}, {
                 withCredentials: true
             });
         },
-        savecart: function (uid, id, quantity) {
+        savecart: function(uid, id, quantity) {
             console.log(cart);
             for (var i = 0; i < cart.length; i++) {
                 if (cart[i].id == id) {
@@ -226,7 +224,7 @@ var myservices = angular.module('myservices', [])
             returntwo.subtotal = this.calcsubtotal();
             return returntwo;
         },
-        calcsubtotal: function () {
+        calcsubtotal: function() {
             subtotal = 0;
             for (var i = 0; i < cart.length; i++) {
                 subtotal += cart[i].price * cart[i].quantity;
@@ -235,18 +233,18 @@ var myservices = angular.module('myservices', [])
             return subtotal;
 
         },
-        gettotalproductsincart: function (data, status) {
+        gettotalproductsincart: function(data, status) {
             console.log(data);
             TemplateService.totalproducts = data;
             return 0;
         },
-        usercontact: function (id, name, email, phone, comment) {
+        usercontact: function(id, name, email, phone, comment) {
             return $http.post(adminurl + 'usercontact?id=' + id + '&name=' + name + '&email=' + email + '&phone=' + phone + '&comment=' + comment, {}, {
                 withCredentials: true
             });
         },
 
-        placeorder: function (form) {
+        placeorder: function(form) {
             return $http({
                 url: adminurl + 'placeorder',
                 method: "POST",
@@ -256,65 +254,65 @@ var myservices = angular.module('myservices', [])
                 }
             });
         },
-        seach: function (search) {
+        seach: function(search) {
             return $http.post(adminurl + 'searchbyname?search=' + search, {}, {
                 withCredentials: true
             });
         },
-        newsletter: function (id, email, status) {
+        newsletter: function(id, email, status) {
             return $http.post(adminurl + 'newsletter?id=' + id + '&email=' + email + "&status=" + status, {}, {
                 withCredentials: true
             });
         },
-        showwishlist: function (user) {
+        showwishlist: function(user) {
             return $http.post(adminurl + 'showwishlist?user=' + user, {}, {
                 withCredentials: true
             });
         },
-        logout: function () {
+        logout: function() {
             return $http.post(adminurl + 'logout', {}, {
                 withCredentials: true
             });
         },
-        addtowishlist: function (user, product) {
+        addtowishlist: function(user, product) {
             return $http.post(adminurl + 'addtowishlist?user=' + user + '&product=' + product, {}, {
                 withCredentials: true
             });
         },
-        authenticate: function () {
+        authenticate: function() {
             return $http.post(adminurl + 'authenticate', {}, {
                 withCredentials: true
             });
         },
-        registeruser: function (firstname, lastname, email, password) {
+        registeruser: function(firstname, lastname, email, password) {
             return $http.post(adminurl + 'registeruser?firstname=' + firstname + '&lastname=' + lastname + '&email=' + email + '&password=' + password, {}, {
                 withCredentials: true
             });
         },
-        loginuser: function (email, password) {
+        loginuser: function(email, password) {
             return $http.post(adminurl + 'loginuser?email=' + email + '&password=' + password, {}, {
                 withCredentials: true
             });
         },
-        signupemail: function (email) {
+        signupemail: function(email) {
             return $http.post(adminurl + 'signupemail?email=' + email, {}, {
                 withCredentials: true
             });
         },
-        orderemail: function (email, orderid) {
+        orderemail: function(email, orderid) {
             return $http.post(adminurl + 'orderemail?email=' + email + '&orderid=' + orderid, {}, {
                 withCredentials: true
             });
         },
-        getusercart: function (user) {
+        getusercart: function(user) {
             return $http.get(adminurl + 'getusercart?user=' + user, {}, {
                 withCredentials: true
             });
         },
-        getallslider: function (user) {
+        getallslider: function(user) {
             return $http.get(adminurl + 'getallslider');
         },
-        chargestripe: function (token, email, amount, name) {
+        chargestripe: function(token, email, amount, name) {
             return $http.get('http://wohlig.com/stripe/index.php/welcome/chargestripe', {
                 params: {
                     token: token,
@@ -327,7 +325,7 @@ var myservices = angular.module('myservices', [])
                 withCredentials: true
             });
         },
-        nextproduct: function (product, next) {
+        nextproduct: function(product, next) {
             return $http.get(adminurl + 'nextproduct', {
                 params: {
                     id: product,
