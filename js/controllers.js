@@ -7,16 +7,76 @@ angular.module('starter.controllers', ['myservices'])
         $scope.obj = MyServices.getobj();
     }
     MyServices.gettotalcart().success(totalcartsuccess);
-
-
 })
 
 .controller('HomeCtrl', function ($scope, $stateParams, MyServices) {
 
-    var slidersuccess = function (data, status) {
-        $scope.sliders = data;
-    };
-    MyServices.getallslider().success(slidersuccess);
+        var slidersuccess = function (data, status) {
+            $scope.sliders = data;
+        };
+        MyServices.getallslider().success(slidersuccess);
+
+    $scope.sliderss = [{
+        "id": "1",
+        "image": "img/up1.png",
+        "link": "AD-NECKLACE-SET",
+        "name": "Bangle"
+
+                }, {
+        "id": "2",
+        "image": "img/up2.png",
+        "link": "AD-NECKLACE-SET",
+        "name": "Necklace"
+
+                }, {
+        "id": "3",
+        "image": "img/up3.png",
+        "link": "FingerRing",
+        "name": "Rings"
+
+                }, {
+        "id": "4",
+        "image": "img/up4.png",
+        "link": "Corporate-Earings",
+        "name": "Earings"
+
+                }, {
+        "id": "5",
+        "image": "img/up5.png",
+        "link": "AQ-JUDA",
+        "name": "Juda"
+
+                }, {
+        "id": "6",
+        "image": "img/up6.png",
+        "link": "AD-PAYAL",
+        "name": "Payal"
+                }];    
+    $scope.slidersss = [{
+        "id": "1",
+        "image": "img/p1.png",
+        "link": "AD-NECKLACE-SET",
+        "name": "American Diamond"
+
+                }, {
+        "id": "2",
+        "image": "img/p2.png",
+        "link": "Pearl-Mala",
+        "name": "Pearl"
+
+                }, {
+        "id": "3",
+        "image": "img/p3.png",
+        "link": "AQ-VICTORIA-SET",
+        "name": "Antique"
+
+                }, {
+        "id": "4",
+        "image": "img/p4.png",
+        "link": "MICRO-SET",
+        "name": "Micro Set"
+                    
+                }];
 
     //newsletter
     var newslettersaved = function (data, status) {
@@ -76,28 +136,28 @@ angular.module('starter.controllers', ['myservices'])
     var change = 11;
     var counter = 0;
     $scope.products = [];
-    $scope.pageno=1;
+    $scope.pageno = 1;
     var onsuccess = function (data, status) {
         console.log(data);
-          for (var i = 0; i < data.queryresult.length; i++) {
+        for (var i = 0; i < data.queryresult.length; i++) {
             $scope.productItem.push(data.queryresult[i]);
-          }
-          if (data.lastpage > $scope.pageno) {
-              $scope.pageno = $scope.pageno + 1;
-          } else {
-              $scope.$broadcast('scroll.infiniteScrollComplete');
-          }
+        }
+        if (data.lastpage > $scope.pageno) {
+            $scope.pageno = $scope.pageno + 1;
+        } else {
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+        }
 
     };
     MyServices.getproductbycategory(categoryId).success(onsuccess);
     var oldpage = 0;
     $scope.loadMore = function () {
 
-      console.log("ADD MORE: "+oldpage);
-            if (oldpage != $scope.pageno) {
-                oldpage = $scope.pageno;
-                MyServices.getproductbycategory(categoryId, $scope.pageno).success(onsuccess);
-            }
+        console.log("ADD MORE: " + oldpage);
+        if (oldpage != $scope.pageno) {
+            oldpage = $scope.pageno;
+            MyServices.getproductbycategory(categoryId, $scope.pageno).success(onsuccess);
+        }
         // var sum = counter + change;
         // if (sum > $scope.products.product.length) {
         //     sum = $scope.products.product.length;
@@ -273,6 +333,12 @@ angular.module('starter.controllers', ['myservices'])
 })
 
 .controller('AccountCtrl', function ($scope) {
+
+})
+.controller('WelcomeCtrl', function ($scope) {
+
+})
+.controller('MissuniCtrl', function ($scope) {
 
 })
 
@@ -460,7 +526,7 @@ angular.module('starter.controllers', ['myservices'])
 
     $scope.showpaywithcard = false;
     $scope.showplaceorder = true;
-    $scope.cart=[];
+    $scope.cart = [];
     var onsuccess = function (data, status) {
         $scope.products = data;
         $scope.cart = data;
@@ -901,8 +967,8 @@ angular.module('starter.controllers', ['myservices'])
         console.log(form);
         console.log("amount:" + amount);
         handler.open({
-            name: 'Lyla Loves',
-            description: 'Total Amount: £ ' + amount,
+            name: 'Magic Mirror',
+            description: 'Total Amount: Rs ' + amount,
             amount: amount * 100,
 
         });
@@ -999,7 +1065,7 @@ angular.module('starter.controllers', ['myservices'])
             $location.url("#/account/login");
             MyServices.signupemail(data.email).success(emailsend);
         } else {
-            $scope.msgr = "Error In Registration";
+            $scope.msgr = "This Email is already registered with us.";
         }
     };
     $scope.signup = function (register) {

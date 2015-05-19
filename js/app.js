@@ -9,22 +9,22 @@
 
 angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
 
-.run(function($ionicPlatform) {
-    $ionicPlatform.ready(function() {
+.run(function ($ionicPlatform) {
+    $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
         if (window.cordova && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         }
         if (window.StatusBar) {
-            StatusBar.overlaysWebView(true);
-            StatusBar.styleLightContent();
+            // org.apache.cordova.statusbar required
+            StatusBar.styleDefault();
         }
     });
 })
 
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function ($stateProvider, $urlRouterProvider) {
 
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router
@@ -33,7 +33,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
     $stateProvider
 
     // setup an abstract state for the tabs directive
-    .state('tab', {
+        .state('tab', {
         url: "/tab",
         abstract: true,
         templateUrl: "templates/tabs.html",
@@ -58,6 +58,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
             'tab-home': {
                 templateUrl: 'templates/tab-home.html',
                 controller: 'HomeCtrl'
+            }
+        }
+    })
+    
+     .state('tab.miss-uni', {
+        url: '/miss-uni',
+        views: {
+            'tab-home': {
+                templateUrl: 'templates/miss-uni.html',
+                controller: 'MissuniCtrl'
             }
         }
     })
@@ -93,14 +103,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
     })
 
     .state('tab.productwish', {
-        url: '/account/wishlist/product/:pid',
-        views: {
-            'tab-account': {
-                templateUrl: 'templates/shop-product.html',
-                controller: 'ProductCtrl'
+            url: '/account/wishlist/product/:pid',
+            views: {
+                'tab-account': {
+                    templateUrl: 'templates/shop-product.html',
+                    controller: 'ProductCtrl'
+                }
             }
-        }
-    })
+        })
         .state('tab.producthome', {
             url: '/home/product/:pid',
             views: {
@@ -112,14 +122,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
         })
 
     .state('tab.lookbook', {
-        url: '/lookbook',
-        views: {
-            'tab-lookbook': {
-                templateUrl: 'templates/tab-lookbook.html',
-                controller: 'LookbookCtrl'
+            url: '/lookbook',
+            views: {
+                'tab-lookbook': {
+                    templateUrl: 'templates/tab-lookbook.html',
+                    controller: 'LookbookCtrl'
+                }
             }
-        }
-    })
+        })
         .state('tab.lookbookitem', {
             url: '/lookbook/items',
             views: {
@@ -156,15 +166,23 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
                 }
             }
         })
-        .state('tab.signup', {
-            url: '/account/signup',
-            views: {
-                'tab-account': {
-                    templateUrl: 'templates/account-signup.html',
-                    controller: 'LoginCtrl'
-                }
+
+    .state('welcome', {
+        url: "/welcomescreen",
+        templateUrl: "templates/welcomescreen.html",
+        controller: 'WelcomeCtrl'
+    })
+
+
+    .state('tab.signup', {
+        url: '/account/signup',
+        views: {
+            'tab-account': {
+                templateUrl: 'templates/account-signup.html',
+                controller: 'LoginCtrl'
             }
-        })
+        }
+    })
 
     .state('tab.wishlist', {
         url: '/account/wishlist',
@@ -221,8 +239,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
 
 })
 
-.filter('convertprice', function() {
-    return function(input) {
+.filter('convertprice', function () {
+    return function (input) {
         var price = parseFloat(input);
         if (price < 0) {
             return 0;
@@ -231,10 +249,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
         for (var i = 0; i < conversionrate.length; i++) {
             if (conversionrate[i].name == currency) {
                 //console.log("currency: "+currency+" price ini: "+price+" price new: "+parseFloat(conversionrate[i].conversionrate)*price);
-                if (currency == "USD") {
+                if (currency == "INR") {
                     currencyshow = "Rs";
-                } else if (currency == "EURO") {
-                    currencyshow = "€";
+                } else {
+                    currencyshow = "$";
                 }
                 return currencyshow + " " + (parseFloat(conversionrate[i].conversionrate) * price).toFixed(2);
             }
@@ -243,19 +261,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
 })
 
 
-.filter('imagepath', function() {
-    return function(input) {
-        return "http://magicmirrornew.appspot.com/showimage?size=300&image=gs://magicmirroruploads/uploads/" + input.trim();
-    };
-})
-    .filter('imagepathbig', function() {
-        return function(input) {
+.filter('imagepath', function () {
+        return function (input) {
+            return "http://magicmirrornew.appspot.com/showimage?size=300&image=gs://magicmirroruploads/uploads/" + input.trim();
+        };
+    })
+    .filter('imagepathbig', function () {
+        return function (input) {
             return "http://magicmirrornew.appspot.com/showimage?size=800&image=gs://magicmirroruploads/uploads/" + input.trim();
         };
     })
     .filter('inSlicesOf', ['$rootScope',
-        function($rootScope) {
-            makeSlices = function(items, count) {
+         function ($rootScope) {
+            makeSlices = function (items, count) {
                 if (!count)
                     count = 3;
 
@@ -279,13 +297,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
             };
 
             return makeSlices;
-        }
-    ])
+         }])
     .filter('noFractionCurrency', ['$filter', '$locale',
-        function(filter, locale) {
+                 function (filter, locale) {
             var currencyFilter = filter('currency');
             var formats = locale.NUMBER_FORMATS;
-            return function(amount, currencySymbol) {
+            return function (amount, currencySymbol) {
                 var value = currencyFilter(amount, currencySymbol);
                 var sep = value.indexOf(formats.DECIMAL_SEP);
                 if (amount >= 0) {
@@ -293,7 +310,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
                 }
                 return value.substring(0, sep) + ')';
             };
-        }
-    ]);
+                 }]);
 
 ;

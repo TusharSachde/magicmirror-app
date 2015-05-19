@@ -120,7 +120,7 @@ a {
 }
 
 .item {
-    color: #a8a8a8 !important;
+    color: #5C5C5C !important;
     font-size: 14px;
     font-weight: 500;
 }
@@ -200,8 +200,9 @@ img.socialicons {
 }
 
 .imageset {
-    width: 95%;
-    border: 10px solid #f7f7f7;
+    width: 100%;
+    /*    border: 10px solid #f7f7f7;*/
+    
     height: auto;
     position: relative;
 }
@@ -276,14 +277,21 @@ img.socialicons {
     margin-bottom: 5px;
 }
 
+.hrt{
+    color: #ef9bbf;
+  float: right;
+}
+
 .hdtitle {
-    padding: 20px 0px;
-    width: 90%;
+    padding: 7px 0;
+    width: 100%;
     color: #4D5355;
-    font-weight: bold;
+    font-weight: 500;
     font-family: 'futura' !important;
     -webkit-font-smoothing: antialiased;
     font-size: 18px;
+    background: #e6e7e8;
+    margin-top: 7px;
 }
 
 .item-input-wrapper {
@@ -298,6 +306,12 @@ input.discountcoupon.form-control.newsletteremail.ng-pristine.ng-valid {
 
 .mt-5 {
     margin-top: -5px;
+}
+.mt5{
+    margin-top: 5px;
+}
+.mt15 {
+    margin-top: 15px;
 }
 
 .pos {
@@ -321,4 +335,104 @@ input.discountcoupon.form-control.newsletteremail.ng-pristine.ng-valid {
     font-size: 14px;
     color: #4D5355;
     padding: 4px 10px;
+}
+
+.button.logcon {
+    background-image: url('../img/logo_mm.png');
+    background-color: transparent;
+    border: 0;
+    width: 29px;
+    height: 28px;
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+/* Gradient transparent - color - transparent */
+
+.style-two {
+    border: 0;
+    height: 1px;
+    background-image: -webkit-gradient(linear, left top, right top, from(transparent), color-stop(rgba(100, 100, 101, 0.75)), to(rgba(100, 100, 101, 0)));
+    background-image: -webkit-linear-gradient(left, transparent, rgba(100, 100, 101, 0.75), rgba(100, 100, 101, 0));
+    background-image: -moz-linear-gradient(left, transparent, rgba(100, 100, 101, 0.75), rgba(100, 100, 101, 0));
+    background-image: -o-linear-gradient(left, transparent, rgba(100, 100, 101, 0.75), rgba(100, 100, 101, 0));
+    background-image: linear-gradient(to right, transparent, rgba(100, 100, 101, 0.75), rgba(100, 100, 101, 0));
+    position: relative;
+    top: 215px;
+}
+
+.splash .logo {
+    position: absolute;
+    top: 100px;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+    left: 50%;
+}
+
+.splash .missuni {
+    position: absolute;
+    top: 265px;
+    width: 70%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+    left: 50%;
+}
+
+.splash p {
+    position: absolute;
+    top: 330px;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+    left: 50%;
+}
+
+.jwellery{
+    padding: 1px 15px!important;
+}
+
+.jwellery img {
+    height: 96px;
+    width: auto;
+}
+
+.jwellery .col {
+    border: 1px solid #e3e3e5;
+    padding-bottom: 0;
+}
+
+.jwellery .col p {
+    margin: 0;
+}
+
+.misslogo {
+    width: 50%;
+    float: left;
+    margin-left: 10px;
+}
+
+.misstext {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    color: #fff;
+}
+
+.mtext {
+   font-size: 12px;
+  float: right;
+  margin-right: 12px;
+  color: #d1d3d3;
+}
+.mt3{
+    margin-top: 3px;
 }
