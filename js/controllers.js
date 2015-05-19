@@ -11,10 +11,10 @@ angular.module('starter.controllers', ['myservices'])
 
 .controller('HomeCtrl', function ($scope, $stateParams, MyServices) {
 
-        var slidersuccess = function (data, status) {
-            $scope.sliders = data;
-        };
-        MyServices.getallslider().success(slidersuccess);
+    var slidersuccess = function (data, status) {
+        $scope.sliders = data;
+    };
+    MyServices.getallslider().success(slidersuccess);
 
     $scope.sliderss = [{
         "id": "1",
@@ -51,7 +51,7 @@ angular.module('starter.controllers', ['myservices'])
         "image": "img/up6.png",
         "link": "AD-PAYAL",
         "name": "Payal"
-                }];    
+                }];
     $scope.slidersss = [{
         "id": "1",
         "image": "img/p1.png",
@@ -75,7 +75,7 @@ angular.module('starter.controllers', ['myservices'])
         "image": "img/p4.png",
         "link": "MICRO-SET",
         "name": "Micro Set"
-                    
+
                 }];
 
     //newsletter
@@ -97,7 +97,7 @@ angular.module('starter.controllers', ['myservices'])
 
 })
 
-.controller('DashCtrl', function ($scope, $stateParams, MyServices) {
+.controller('DashCtrl', function ($scope, $stateParams, MyServices, $location, $anchorScroll) {
 
     var authenticate = function (data, status) {
         console.log(data);
@@ -107,7 +107,18 @@ angular.module('starter.controllers', ['myservices'])
     };
     MyServices.authenticate().success(authenticate);
 
+//    $scope.gotoBottom = function (hashid) {
+//        // set the location.hash to the id of
+//        // the element you wish to scroll to.
+//        $location.hash(hashid);
+//
+//        // call $anchorScroll()
+//        $anchorScroll();
+//    };
+
 })
+
+
 
 .controller('ItemCtrl', function ($scope, $stateParams, MyServices) {
 
@@ -334,13 +345,13 @@ angular.module('starter.controllers', ['myservices'])
 
 .controller('AccountCtrl', function ($scope) {
 
-})
-.controller('WelcomeCtrl', function ($scope) {
+    })
+    .controller('WelcomeCtrl', function ($scope) {
 
-})
-.controller('MissuniCtrl', function ($scope) {
+    })
+    .controller('MissuniCtrl', function ($scope) {
 
-})
+    })
 
 .controller('CartCtrl', function ($scope, $stateParams, MyServices, $ionicLoading) {
     //Product details

@@ -372,6 +372,12 @@ input.discountcoupon.form-control.newsletteremail.ng-pristine.ng-valid {
     transform: translateX(-50%);
     left: 50%;
 }
+/*
+#scrollArea {
+  height: 500px;
+  overflow: auto;
+}
+*/
 
 .splash .missuni {
     position: absolute;
