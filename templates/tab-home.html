@@ -135,32 +135,43 @@
                     <div class="hdtitle">What’s Trending</div>
                     <ion-scroll direction="x">
                         <div class="row">
+<!--
                             <div class="col-33">
-                                <a href="#">
+                                <a href="#/tab/dash">
                                     <i class="icon hrt ion-heart"></i>
-                                    <img src="img/jwel1.png" class="full-image">
+                                    <img src="img/jwel1.png" class="full-image full-img">
                                     <p class="royal productprice">American Diamond</p>
                                 </a>
                             </div>
                             <div class="col-33">
-                                <a href="#">
+                                <a href="#/tab/dash">
                                     <i class="icon hrt ion-heart"></i>
-                                    <img src="img/jwel2.png" class="full-image">
+                                    <img src="img/jwel2.png" class="full-image full-img">
                                     <p class="royal productprice">Pearl</p>
                                 </a>
                             </div>
                             <div class="col-33">
-                                <a href="#">
+                                <a href="#/tab/dash">
                                     <i class="icon hrt ion-heart"></i>
-                                    <img src="img/adiamond.png" class="full-image">
+                                    <img src="img/adiamond.png" class="full-image full-img">
                                     <p class="royal productprice">Antique</p>
                                 </a>
                             </div>
                             <div class="col-33">
-                                <a href="#">
+                                <a href="#/tab/dash">
                                     <i class="icon hrt ion-heart"></i>
-                                    <img src="img/wedding-jwellery.png" class="full-image">
+                                    <img src="img/wedding-jwellery.png" class="full-image full-img">
                                     <p class="royal productprice">Micro Set</p>
+                                </a>
+                            </div>
+                            
+-->
+                            
+                                                        <div class="col col-33" ng-repeat="slider in slidersss">
+                                <a href="#/tab/dash/categories/{{slider.link}}">
+                                    <i class="icon hrt ion-heart"></i>
+                                    <img src="{{slider.image}}" class="full-image full-img">
+                                    <p class="royal productprice">{{slider.name}}</p>
                                 </a>
                             </div>
                         </div>

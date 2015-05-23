@@ -54,25 +54,25 @@ angular.module('starter.controllers', ['myservices'])
                 }];
     $scope.slidersss = [{
         "id": "1",
-        "image": "img/p1.png",
+        "image": "img/jwel1.png",
         "link": "AD-NECKLACE-SET",
         "name": "American Diamond"
 
                 }, {
         "id": "2",
-        "image": "img/p2.png",
+        "image": "img/jwel2.png",
         "link": "Pearl-Mala",
         "name": "Pearl"
 
                 }, {
         "id": "3",
-        "image": "img/p3.png",
+        "image": "img/adiamond.png",
         "link": "AQ-VICTORIA-SET",
         "name": "Antique"
 
                 }, {
         "id": "4",
-        "image": "img/p4.png",
+        "image": "img/wedding-jwellery.png",
         "link": "MICRO-SET",
         "name": "Micro Set"
 

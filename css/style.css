@@ -35,6 +35,11 @@ textarea {
     width: 100%;
 }
 
+.full-img
+{
+    height: 100px;
+}
+
 a {
     text-decoration: none !important;
 }
