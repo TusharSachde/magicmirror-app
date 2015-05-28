@@ -1,208 +1,81 @@
-<ion-view view-title=" ">
-    <ion-content class="has-header">
-        <center>
-            <div class="mt3">
-                <a href="#/tab/dash">
-                    <img src="img/mlogo.png" style="width:60%;">
-                </a>
-            </div>
-            <!--
-            <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" show-pager="false" auto-play="3000">
-                <ion-slide>
-                    <div class="">
-                        <img class="mt-5" src="img/01.jpg" width="100%" />
-                    </div>
-                </ion-slide>
-                <ion-slide>
-                    <div class="">
-                        <img class="mt-5" src="img/02.jpg" width="100%" />
-                    </div>
-                </ion-slide>
-                <ion-slide>
-                    <div class="">
-                        <img class="mt-5" src="img/03.jpg" width="100%" />
-                    </div>
-                </ion-slide>
-                <ion-slide>
-                    <div class="">
-                        <img class="mt-5" src="img/04.jpg" width="100%" />
-                    </div>
-                </ion-slide>
-                <ion-slide>
-                    <div class="">
-                        <img class="mt-5" src="img/05.jpg" width="100%" />
-                    </div>
-                </ion-slide>
-            </ion-slide-box>
--->
-            <!--
-<div class="pos">
-    <a href="#">
-        <img class="mt-5" src="img/inpressions.jpg" width="100%" />
-    </a>
-    <div class="text">
-        <span>IMPRESSIONS OF EXCELLENCE</span>
-        <div>
-            <a href="#/tab/dash" class="btnview">View All</a>
+<ion-view title="">
+    <ion-content>
+       <center>
+        <div class="mt3 text-center">
+            <a href="#/tab/dash">
+                <img src="img/mlogo.png" style="width:60%;">
+            </a>
         </div>
-    </div>
-</div>
--->
-            <!--
-            <div class="pos">
-                <a href="#">
-                    <img class="mt-5" src="img/back2.jpg" width="100%" />
-                </a>
-                <div class="text">
-                    <span>IMPRESSIONS OF EXCELLENCE</span>
-                    <div>
-                        <a href="#/tab/dash" class="btnview">View All</a>
-                    </div>
+
+        <div>
+            <div class="row jwellery">
+                <div class="col" style="border-right:none;">
+                    <a href="#/tab/dash">
+                        <img src="img/adiamond.png">
+                    </a>
+                    <p class="text-center">American Diamond</p>
+                </div>
+                <div class="col">
+                    <!--                        <a ng-click="gotoBottom('antique');" ng-href="#/tab/dash#antique">-->
+                    <a href="#/tab/dash#antique">
+                        <img src="img/antique.png">
+                    </a>
+                    <p class="text-center">Antique</p>
                 </div>
             </div>
--->
-            <!--
-            <div class="productset">
-                <div class="imageset">
-                    <div class="hdtitle">Categories</div>
-                    <ion-scroll direction="x">
-                        <div class="row">
-                            <div class="col col-25" ng-repeat="slider in sliderss">
-                                <a href="#/tab/dash/categories/{{slider.link}}">
-                                    <img src="{{slider.image}}" class="full-image">
-                                    <p class="royal productprice">{{slider.name}}</p>
-                                </a>
-                            </div>
+            <div class="row jwellery">
+                <div class="col" style="border-right:none;border-top:none;border-bottom:none;">
+                    <a href="#/tab/dash#pearl">
+                        <img src="img/pearl.png">
+                    </a>
+                    <p class="text-center">Pearl</p>
+                </div>
+                <div class="col" style="border-top:none;border-bottom:none;">
+                    <a href="#/tab/dash">
+                        <img src="img/corporate.png">
+                    </a>
+                    <p class="text-center">Corporate</p>
+                </div>
+            </div>
+            <div class="row jwellery">
+                <div class="col" style="border-right:none;">
+                    <a href="#/tab/dash">
+                        <img src="img/micro.png">
+                    </a>
+                    <p class="text-center">Micro</p>
+                </div>
+                <div class="col">
+                    <a href="#/tab/dash">
+                        <img src="img/wedding-jwellery.png">
+                    </a>
+                    <p class="text-center">Wedding Jwellery</p>
+                </div>
+            </div>
+        </div>
+        <div class="mt15 pos text-center">
+            <img class="misslogo" src="img/missuni1.png"><span class="mtext">Premium Fashion Jwellery</span>
+            <a href="#/tab/dash">
+                <img src="img/miss.png" style="width:100%;">
+            </a>
+        </div>
+
+        <div class="productset">
+            <div class="imageset">
+                <div class="hdtitle text-center">What’s Trending</div>
+                <ion-scroll direction="x">
+                    <div class="row">
+                        <div class="col col-33" ng-repeat="slider in slidersss">
+                            <a href="#/tab/dash/categories/{{slider.link}}">
+                                <i class="icon hrt ion-heart"></i>
+                                <img src="{{slider.image}}" class="full-image full-img">
+                                <p class="royal productprice">{{slider.name}}</p>
+                            </a>
                         </div>
-                    </ion-scroll>
-                </div>
-            </div>    
--->
-            <div>
-                <div class="row jwellery">
-                    <div class="col" style="border-right:none;">
-                        <a href="#/tab/dash">
-                            <img src="img/adiamond.png">
-                        </a>
-                        <p class="text-center">American Diamond</p>
                     </div>
-                    <div class="col">
-<!--                        <a ng-click="gotoBottom('antique');" ng-href="#/tab/dash#antique">-->
-                        <a href="#/tab/dash#antique">
-                            <img src="img/antique.png">
-                        </a>
-                        <p class="text-center">Antique</p>
-                    </div>
-                </div>
-                <div class="row jwellery">
-                    <div class="col" style="border-right:none;border-top:none;border-bottom:none;">
-                        <a href="#/tab/dash#pearl">
-                            <img src="img/pearl.png">
-                        </a>
-                        <p class="text-center">Pearl</p>
-                    </div>
-                    <div class="col" style="border-top:none;border-bottom:none;">
-                        <a href="#/tab/dash">
-                            <img src="img/corporate.png">
-                        </a>
-                        <p class="text-center">Corporate</p>
-                    </div>
-                </div>
-                <div class="row jwellery">
-                    <div class="col" style="border-right:none;">
-                        <a href="#/tab/dash">
-                            <img src="img/micro.png">
-                        </a>
-                        <p class="text-center">Micro</p>
-                    </div>
-                    <div class="col">
-                        <a href="#/tab/dash">
-                            <img src="img/wedding-jwellery.png">
-                        </a>
-                        <p class="text-center">Wedding Jwellery</p>
-                    </div>
-                </div>
+                </ion-scroll>
             </div>
-            <div class="mt15 pos">
-                <img class="misslogo" src="img/missuni1.png"><span class="mtext">Premium Fashion Jwellery</span>
-                <a href="#/tab/dash">
-                    <img src="img/miss.png" style="width:100%;">
-                </a>
-            </div>
-
-            <div class="productset">
-                <div class="imageset">
-                    <div class="hdtitle">What’s Trending</div>
-                    <ion-scroll direction="x">
-                        <div class="row">
-<!--
-                            <div class="col-33">
-                                <a href="#/tab/dash">
-                                    <i class="icon hrt ion-heart"></i>
-                                    <img src="img/jwel1.png" class="full-image full-img">
-                                    <p class="royal productprice">American Diamond</p>
-                                </a>
-                            </div>
-                            <div class="col-33">
-                                <a href="#/tab/dash">
-                                    <i class="icon hrt ion-heart"></i>
-                                    <img src="img/jwel2.png" class="full-image full-img">
-                                    <p class="royal productprice">Pearl</p>
-                                </a>
-                            </div>
-                            <div class="col-33">
-                                <a href="#/tab/dash">
-                                    <i class="icon hrt ion-heart"></i>
-                                    <img src="img/adiamond.png" class="full-image full-img">
-                                    <p class="royal productprice">Antique</p>
-                                </a>
-                            </div>
-                            <div class="col-33">
-                                <a href="#/tab/dash">
-                                    <i class="icon hrt ion-heart"></i>
-                                    <img src="img/wedding-jwellery.png" class="full-image full-img">
-                                    <p class="royal productprice">Micro Set</p>
-                                </a>
-                            </div>
-                            
--->
-                            
-                                                        <div class="col col-33" ng-repeat="slider in slidersss">
-                                <a href="#/tab/dash/categories/{{slider.link}}">
-                                    <i class="icon hrt ion-heart"></i>
-                                    <img src="{{slider.image}}" class="full-image full-img">
-                                    <p class="royal productprice">{{slider.name}}</p>
-                                </a>
-                            </div>
-                        </div>
-                    </ion-scroll>
-                </div>
-            </div>
-
-
-            <!--
-            INTREGATED CODE FOR WHATS TRENDING
-            
-            
-            <div class="productset">
-                <div class="imageset">
-                    <div class="hdtitle">What’s Trending</div>
-                    <ion-scroll direction="x">
-                        <div class="row">
-                            <div class="col col-33" ng-repeat="slider in slidersss">
-                                <a href="#/tab/dash/categories/{{slider.link}}">
-                                    <i class="icon hrt ion-heart"></i>
-                                    <img src="{{slider.image}}" class="full-image">
-                                    <p class="royal productprice">{{slider.name}}</p>
-                                </a>
-                            </div>
-                        </div>
-                    </ion-scroll>
-                </div>
-            </div>
--->
-
-
+        </div>
         </center>
+
     </ion-content>
 </ion-view>
