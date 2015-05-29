@@ -435,3 +435,7 @@ input.discountcoupon.form-control.newsletteremail.ng-pristine.ng-valid {
 .mt3{
     margin-top: 3px;
 }
+
+.stable, a.stable {
+  color: #4D5355;
+} 
