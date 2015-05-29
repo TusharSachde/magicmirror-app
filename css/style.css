@@ -35,9 +35,10 @@ textarea {
     width: 100%;
 }
 
-.full-img
+ .full-img
 {
-    height: 100px;
+    width: 70px;
+    margin-top: 6px;
 }
 
 a {
@@ -283,6 +284,8 @@ img.socialicons {
 .hrt{
     color: #ef9bbf;
   float: right;
+    position: absolute;
+    right: 0;
 }
 
 .hdtitle {
@@ -439,3 +442,14 @@ input.discountcoupon.form-control.newsletteremail.ng-pristine.ng-valid {
 .stable, a.stable {
   color: #4D5355;
 } 
+
+.main-slide {
+  display: table-cell;
+  padding: 8px 0 2px;
+  font-size: 12px;
+  position: relative;
+}
+
+.slidescrolls {
+  display: table;
+}
