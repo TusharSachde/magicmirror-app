@@ -533,12 +533,12 @@ angular.module('starter.controllers', ['myservices'])
 
 })
 
-.controller('CheckoutCtrl', function ($scope, MyServices) {
+.controller('CheckoutCtrl', function($scope, MyServices) {
 
     $scope.showpaywithcard = false;
     $scope.showplaceorder = true;
     $scope.cart = [];
-    var onsuccess = function (data, status) {
+    var onsuccess = function(data, status) {
         $scope.products = data;
         $scope.cart = data;
         for (var i = 0; i < data.length; i++) {
@@ -547,7 +547,7 @@ angular.module('starter.controllers', ['myservices'])
 
     };
     MyServices.getcart().success(onsuccess);
-    var ontotalsuccess = function (data, status) {
+    var ontotalsuccess = function(data, status) {
         $scope.gettotal = data;
     };
     MyServices.totalcart().success(ontotalsuccess);
@@ -563,46 +563,46 @@ angular.module('starter.controllers', ['myservices'])
     $scope.paymentorderid = 0;
 
 
-    $scope.continueformshipping = function () {
+    $scope.continueformshipping = function() {
 
 
         $scope.allvalidation = [{
             field: $scope.form.firstname,
             validation: ""
-             }, {
+        }, {
             field: $scope.form.lastname,
             validation: ""
-             }, {
+        }, {
             field: $scope.form.email,
             validation: ""
-             }, {
+        }, {
             field: $scope.form.billingaddress,
             validation: ""
-             }, {
+        }, {
             field: $scope.form.phone,
             validation: ""
-             }, {
+        }, {
             field: $scope.form.billingpincode,
             validation: ""
-             }, {
+        }, {
             field: $scope.form.billingcountry,
             validation: ""
-             }, {
+        }, {
             field: $scope.form.billingcity,
             validation: ""
-             }, {
+        }, {
             field: $scope.form.shippingaddress,
             validation: ""
-             }, {
+        }, {
             field: $scope.form.shippingpincode,
             validation: ""
-             }, {
+        }, {
             field: $scope.form.shippingcountry,
             validation: ""
-             }, {
+        }, {
             field: $scope.form.shippingcity,
             validation: ""
-             }];
+        }];
 
 
         var check = formvalidation();
@@ -615,34 +615,40 @@ angular.module('starter.controllers', ['myservices'])
         }
 
     };
-    $scope.continuenoshipping = function () {
+    $scope.continuenoshipping = function() {
 
 
         $scope.allvalidation = [{
             field: $scope.form.firstname,
             validation: ""
-             }, {
+        }, {
             field: $scope.form.lastname,
             validation: ""
-             }, {
+        }, {
+            field: $scope.form.company,
+            validation: ""
+        }, {
             field: $scope.form.email,
             validation: ""
-             }, {
+        }, {
             field: $scope.form.billingaddress,
             validation: ""
-             }, {
-            field: $scope.form.phone,
-            validation: ""
-             }, {
-            field: $scope.form.billingpincode,
-            validation: ""
-             }, {
-            field: $scope.form.billingcountry,
-            validation: ""
-             }, {
+        }, {
             field: $scope.form.billingcity,
             validation: ""
-             }];
+        }, {
+            field: $scope.form.billingstate,
+            validation: ""
+        }, {
+            field: $scope.form.billingpincode,
+            validation: ""
+        }, {
+            field: $scope.form.billingcountry,
+            validation: ""
+        }, {
+            field: $scope.form.phone,
+            validation: ""
+        }];
 
 
         var check = formvalidation();
@@ -656,34 +662,45 @@ angular.module('starter.controllers', ['myservices'])
 
 
     };
-    $scope.showdiffaddress = function () {
+    $scope.hidediffaddress = function() {
+
+        $scope.diffadd = false;
+        $scope.orcontinue = true;
+    }
+    $scope.showdiffaddress = function() {
 
 
         $scope.allvalidation = [{
             field: $scope.form.firstname,
             validation: ""
-             }, {
+        }, {
             field: $scope.form.lastname,
             validation: ""
-             }, {
+        }, {
+            field: $scope.form.company,
+            validation: ""
+        }, {
             field: $scope.form.email,
             validation: ""
-             }, {
+        }, {
             field: $scope.form.billingaddress,
             validation: ""
-             }, {
-            field: $scope.form.phone,
-            validation: ""
-             }, {
-            field: $scope.form.billingpincode,
-            validation: ""
-             }, {
-            field: $scope.form.billingcountry,
-            validation: ""
-             }, {
+        }, {
             field: $scope.form.billingcity,
             validation: ""
-             }];
+        }, {
+            field: $scope.form.billingstate,
+            validation: ""
+        }, {
+            field: $scope.form.billingpincode,
+            validation: ""
+        }, {
+            field: $scope.form.billingcountry,
+            validation: ""
+        }, {
+            field: $scope.form.phone,
+            validation: ""
+        }];
 
 
         var check = formvalidation();
@@ -715,6 +732,130 @@ angular.module('starter.controllers', ['myservices'])
         return isvalid2;
     }
 
+    $scope.payment = {};
+    $scope.orderplacedid = false;
+
+    $scope.orderid = 0;
+    $scope.amount = 0;
+    //place order on countinue
+    var orderplaced = function(data, status) {
+        console.log("place order returns");
+        console.log(data);
+        $scope.orderplacedid = true;
+        $scope.paymentorderid = data;
+        $scope.payment.orderid = data;
+        console.log(data);
+        $scope.payment.amount = $scope.subtotal;
+        console.log($scope.payment);
+    };
+    $scope.continuepayment = function(form) {
+        if($scope.diffadd == true){
+            $scope.allvalidation = [{
+                field: $scope.form.firstname,
+                validation: ""
+            }, {
+                field: $scope.form.lastname,
+                validation: ""
+            }, {
+                field: $scope.form.company,
+                validation: ""
+            }, {
+                field: $scope.form.email,
+                validation: ""
+            }, {
+                field: $scope.form.billingaddress,
+                validation: ""
+            }, {
+                field: $scope.form.billingcity,
+                validation: ""
+            }, {
+                field: $scope.form.billingstate,
+                validation: ""
+            }, {
+                field: $scope.form.billingpincode,
+                validation: ""
+            }, {
+                field: $scope.form.billingcountry,
+                validation: ""
+            }, {
+                field: $scope.form.phone,
+                validation: ""
+            }, {
+                field: $scope.form.shippingname,
+                validation: ""
+            }, {
+                field: $scope.form.shippingtel,
+                validation: ""
+            }, {
+                field: $scope.form.shippingaddress,
+                validation: ""
+            }, {
+                field: $scope.form.shippingcity,
+                validation: ""
+            }, {
+                field: $scope.form.shippingstate,
+                validation: ""
+            }, {
+                field: $scope.form.shippingpincode,
+                validation: ""
+            }, {
+                field: $scope.form.customernote,
+                validation: ""
+            }];
+            
+        }else{
+            
+                $scope.allvalidation = [{
+                field: $scope.form.firstname,
+                validation: ""
+            }, {
+                field: $scope.form.lastname,
+                validation: ""
+            }, {
+                field: $scope.form.company,
+                validation: ""
+            }, {
+                field: $scope.form.email,
+                validation: ""
+            }, {
+                field: $scope.form.billingaddress,
+                validation: ""
+            }, {
+                field: $scope.form.billingcity,
+                validation: ""
+            }, {
+                field: $scope.form.billingstate,
+                validation: ""
+            }, {
+                field: $scope.form.billingpincode,
+                validation: ""
+            }, {
+                field: $scope.form.billingcountry,
+                validation: ""
+            }, {
+                field: $scope.form.phone,
+                validation: ""
+            }];
+
+        }
+        
+        var check = formvalidation();
+        console.log(check);
+        if (check) {
+            $scope.paywithcard = 1;
+            $scope.form.finalamount = $scope.subtotal;
+            $scope.paymentorderemail = $scope.form.email;
+            console.log($scope.cart);
+            $scope.form.cart = $scope.cart;
+            $scope.form.user = $scope.id;
+            $scope.form.status = $scope.status;
+            MyServices.placeorder(form).success(orderplaced);
+        }
+
+        
+        
+    }
+
     //    end shipping to different address fucntion
     function calcdiscountamount() {
         var data = MyServices.getcoupondetails();
@@ -734,19 +875,19 @@ angular.module('starter.controllers', ['myservices'])
             console.log($scope.cart);
 
             var totallength = 0;
-            _.each($scope.cart, function (cart) {
+            _.each($scope.cart, function(cart) {
                 totallength += parseInt(cart.qty);
             });
             var xproducts = parseInt(data.xproducts);
             var yproducts = parseInt(data.yproducts);
             var itter = Math.floor(totallength / xproducts) * yproducts;
             console.log("ITTER " + itter);
-            var newcart = _.sortBy($scope.cart, function (cart) {
+            var newcart = _.sortBy($scope.cart, function(cart) {
                 cart.price = parseFloat(cart.price);
                 cart.qty2 = parseInt(cart.qty);
                 return parseFloat(cart.price);
             });
-            var newcart = _.sortBy($scope.cart, function (cart) {
+            var newcart = _.sortBy($scope.cart, function(cart) {
                 cart.price = parseFloat(cart.price);
                 cart.qty2 = parseInt(cart.qty);
                 return parseFloat(cart.price);
@@ -770,7 +911,7 @@ angular.module('starter.controllers', ['myservices'])
     };
 
     //check out chart
-    var onproductsuccess = function (data, status) {
+    var onproductsuccess = function(data, status) {
         for (var i = 0; i < $scope.products.length; i++) {
             if ($scope.products[i].id == data.product.id) {
                 $scope.products[i].image = data.productimage[0].image;
@@ -778,7 +919,7 @@ angular.module('starter.controllers', ['myservices'])
         }
     };
 
-    var onsuccess = function (data, status) {
+    var onsuccess = function(data, status) {
         $scope.products = data;
 
         for (var i = 0; i < data.length; i++) {
@@ -816,7 +957,7 @@ angular.module('starter.controllers', ['myservices'])
     //    };
 
     $scope.newquantity = [];
-    var showcart = function (data, status) {
+    var showcart = function(data, status) {
         console.log(data);
         $scope.cart = data;
         console.log($scope.cart[0].qty);
@@ -828,7 +969,7 @@ angular.module('starter.controllers', ['myservices'])
         }
     };
     MyServices.getcart().success(showcart);
-    var getsubtotal = function (data, status) {
+    var getsubtotal = function(data, status) {
         console.log(data);
         $scope.subtotal = parseFloat(data);
         calcdiscountamount();
@@ -836,7 +977,7 @@ angular.module('starter.controllers', ['myservices'])
     };
     MyServices.totalcart().success(getsubtotal);
     // free
-    $scope.free = function (country, subtotal, shipping) {
+    $scope.free = function(country, subtotal, shipping) {
         console.log("MAaaaza");
         console.log(country);
         console.log(subtotal);
@@ -877,7 +1018,7 @@ angular.module('starter.controllers', ['myservices'])
         }
 
     };
-    $scope.free2 = function (country, subtotal, shipping) {
+    $scope.free2 = function(country, subtotal, shipping) {
         console.log(country);
         console.log(subtotal);
         console.log(shipping);
@@ -917,12 +1058,12 @@ angular.module('starter.controllers', ['myservices'])
     };
     // free
     $scope.form.shippingcost = 0;
-    $scope.changeshippingcost = function (value) {
+    $scope.changeshippingcost = function(value) {
         console.log(value);
         $scope.form.shippingcost = value;
     };
 
-    var paymentcomplete = function (data, status) {
+    var paymentcomplete = function(data, status) {
         console.log(data);
         MainJson.orderemail($scope.paymentorderemail, $scope.paymentorderid).success(orderemailsend);
         window.location.href = "http://localhost/lyla-touch/#/tab/thankyou";
@@ -933,7 +1074,7 @@ angular.module('starter.controllers', ['myservices'])
         //key: 'pk_test_4etgLi16WbODEDr4YBFdcbP0',
         image: 'img/logo.jpg',
         currency: 'GBP',
-        token: function (token) {
+        token: function(token) {
             MyServices.chargestripe(token.id, $scope.form.email, ($scope.subtotal + $scope.form.shippingcost - $scope.discountamount), ($scope.form.firstname + " " + $scope.form.lastname)).success(paymentcomplete);
             //window.location.href="http://www.lylaloves.co.uk/#/thankyou";
             // Use the token to create the charge with a server-side script.
@@ -943,28 +1084,28 @@ angular.module('starter.controllers', ['myservices'])
 
 
 
-    var placeordersuccess = function (data, status) {
-        console.log(data);
-        $scope.paymentorderid = data;
-        $scope.showpaywithcard = true;
-        $scope.showplaceorder = false;
-    };
+//    var placeordersuccess = function(data, status) {
+//        console.log(data);
+//        $scope.paymentorderid = data;
+//        $scope.showpaywithcard = true;
+//        $scope.showplaceorder = false;
+//    };
+//
+//    $scope.placeorder = function(amount, form) {
+//        console.log("strippaymentGen form");
+//
+//        $scope.paywithcard = 1;
+//        $scope.form.finalamount = $scope.subtotal;
+//        console.log($scope.cart);
+//        //MainJson.orderitem($scope.cart);
+//        $scope.form.cart = $scope.cart;
+//        $scope.form.user = $scope.id;
+//        $scope.form.status = $scope.status;
+//        $scope.paymentorderemail = $scope.form.email;
+//        MyServices.placeorder(form).success(placeordersuccess);
+//    };
 
-    $scope.placeorder = function (amount, form) {
-        console.log("strippaymentGen form");
-
-        $scope.paywithcard = 1;
-        $scope.form.finalamount = $scope.subtotal;
-        console.log($scope.cart);
-        //MainJson.orderitem($scope.cart);
-        $scope.form.cart = $scope.cart;
-        $scope.form.user = $scope.id;
-        $scope.form.status = $scope.status;
-        $scope.paymentorderemail = $scope.form.email;
-        MyServices.placeorder(form).success(placeordersuccess);
-    };
-
-    $scope.StipePaymentGen = function (amount, form) {
+    $scope.StipePaymentGen = function(amount, form) {
         console.log("strippaymentGen form");
 
         $scope.paywithcard = 1;
@@ -986,27 +1127,11 @@ angular.module('starter.controllers', ['myservices'])
     };
 
     //place order
-    var orderemailsend = function (data, status) {
+    var orderemailsend = function(data, status) {
         console.log(data);
         //alert("Email send");
     };
-    var orderplaced = function (data, status) {
-        console.log("place order returns");
-        console.log(data);
-        console.log($scope.form.email);
-        MyServices.orderemail($scope.form.email, data).success(orderemailsend);
-        alert("Order Placed");
-    };
-    //    $scope.continuepayment = function (form) {
-    //        $scope.paywithcard = 1;
-    //        $scope.form.finalamount = $scope.subtotal;
-    //        console.log($scope.cart);
-    //        //MainJson.orderitem($scope.cart);
-    //        $scope.form.cart = $scope.cart;
-    //        $scope.form.user = $scope.id;
-    //        $scope.form.status = $scope.status; //MainJson.placeorder(form.firstname,form.lastname,form.email,form.company,form.billingaddress,form.billingcity,form.billingstate,form.billingpincode,form.billingcountry,form.phone,form.fax,form.shippingaddress,form.shippingcity,form.shippingstate,form.shippingpincode,form.shippingcountry,$scope.id,$scope.status).success(orderplaced);
-    //        MyServices.placeorder(form).success(orderplaced);
-    //    }
+   
 
 })
 
