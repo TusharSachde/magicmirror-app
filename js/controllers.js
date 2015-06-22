@@ -120,9 +120,30 @@ angular.module('starter.controllers', ['myservices'])
 
 
 
-.controller('ItemCtrl', function ($scope, $stateParams, MyServices) {
+.controller('ItemCtrl', function($scope, $stateParams, MyServices, $ionicModal) {
 
-    var authenticate = function (data, status) {
+  $scope.filter = {
+        color: "",
+        pricemin: 0,
+        pricemax: 500000,
+        orderby: "new"
+    };
+    
+     // USING LODASH
+    var users = [{
+        'user': 'barney',
+        'age': "36"
+    }, {
+        'user': 'fred',
+        'age': "40"
+    }];
+    
+//    $scope.dashvar = _.min(users, function(chr) {
+//        return chr.age;
+//    });
+//    console.log($scope.dashvar);
+
+    var authenticate = function(data, status) {
         console.log(data);
         if (data != "false") {
             $scope.loginlogouttext = "Logout";
@@ -131,7 +152,7 @@ angular.module('starter.controllers', ['myservices'])
     $scope.imagewidth = {};
     $scope.imagewidth.width = window.innerWidth / 3 - 15;
 
-    $(window).resize(function () {
+    $(window).resize(function() {
         $scope.imagewidth.width = window.innerWidth / 3 - 15;
         console.log("Resized is called");
         $scope.$apply();
@@ -148,21 +169,33 @@ angular.module('starter.controllers', ['myservices'])
     var counter = 0;
     $scope.products = [];
     $scope.pageno = 1;
-    var onsuccess = function (data, status) {
+    var onsuccess = function(data, status) {
         console.log(data);
         for (var i = 0; i < data.queryresult.length; i++) {
+        
             $scope.productItem.push(data.queryresult[i]);
         }
+        
+        
         if (data.lastpage > $scope.pageno) {
             $scope.pageno = $scope.pageno + 1;
         } else {
             $scope.$broadcast('scroll.infiniteScrollComplete');
         }
+        
+        console.log($scope.productItem);
+        
+        $scope.minimum = _.max($scope.productItem, function(prod){
+            return prod.price;
+        });
+        
+        console.log("minimum price");
+        console.log($scope.minimum.price);
 
     };
     MyServices.getproductbycategory(categoryId).success(onsuccess);
-    var oldpage = 0;
-    $scope.loadMore = function () {
+    var oldpage = 1;
+    $scope.loadMore = function() {
 
         console.log("ADD MORE: " + oldpage);
         if (oldpage != $scope.pageno) {
@@ -180,8 +213,61 @@ angular.module('starter.controllers', ['myservices'])
         // $scope.$broadcast('scroll.infiniteScrollComplete');
     };
     $scope.loadMore();
+    $ionicModal.fromTemplateUrl('templates/filter.html', {
+        id: '1',
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.modal1 = modal;
+    });
 
+    $scope.openfilter = function() {
+        $scope.modal2.show();
+        console.log("1");
+    };
 
+    $scope.closefilter = function() {
+        $scope.modal1.hide();
+    };
+
+    $ionicModal.fromTemplateUrl('templates/sortby.html', {
+        id: '2',
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.modal2 = modal;
+    });
+
+    $scope.opensort = function() {
+        $scope.modal1.show();
+        console.log("2");
+    };
+
+    $scope.closesort = function() {
+        $scope.modal2.hide();
+    };
+
+    
+    //FILTER SAVE
+    
+        $scope.filtersave = function (filter) {
+            console.log("before filte");
+            console.log(filter);
+            MyServices.setfilter(filter);
+            console.log("after filte");
+            console.log(MyServices.getfilters());
+            $scope.productItem = [];
+            $scope.modal1.hide();
+            MyServices.getproductbycategory(categoryId).success(onsuccess);
+        };
+    
+    $scope.orderbychange = function (filter) {
+            console.log(filter);
+            MyServices.setfilter(filter);
+            $scope.productItem = [];
+            $scope.modal2.hide();
+            MyServices.getproductbycategory(categoryId).success(onsuccess);
+        };
 })
 
 .controller('ProductCtrl', function ($scope, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, $ionicLoading, MyServices, $location, $state) {

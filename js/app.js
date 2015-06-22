@@ -262,10 +262,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
 
 
 .filter('imagepath', function () {
-        return function (input) {
-            return "http://magicmirrornew.appspot.com/showimage?size=300&image=gs://magicmirroruploads/uploads/" + input.trim();
-        };
-    })
+  return function (input) {
+      if(input.slice(0,3)=="gs:"){
+          return "http://magicmirrornew.appspot.com/showimage?size=300&image="+input.trim();
+      }else{
+          return "http://magicmirrornew.appspot.com/showimage?size=300&image=gs://magicmirroruploads/uploads/"+input.trim();
+      }
+  };
+})
     .filter('imagepathbig', function () {
         return function (input) {
             return "http://magicmirrornew.appspot.com/showimage?size=800&image=gs://magicmirroruploads/uploads/" + input.trim();
