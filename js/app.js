@@ -61,8 +61,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
             }
         }
     })
-    
-     .state('tab.miss-uni', {
+
+    .state('tab.miss-uni', {
         url: '/miss-uni',
         views: {
             'tab-home': {
@@ -83,24 +83,32 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
     })
 
     .state('tab.items', {
-        url: '/dash/categories/:cid',
-        views: {
-            'tab-dash': {
-                templateUrl: 'templates/shop-items.html',
-                controller: 'ItemCtrl'
+            url: '/dash/categories/:cid',
+            views: {
+                'tab-dash': {
+                    templateUrl: 'templates/shop-items.html',
+                    controller: 'ItemCtrl'
+                }
             }
-        }
-    })
-
-    .state('tab.product', {
-        url: '/dash/categories/product/:pid',
-        views: {
-            'tab-dash': {
-                templateUrl: 'templates/shop-product.html',
-                controller: 'ProductCtrl'
+        })
+        .state('tab.itemshome', {
+            url: '/home/categories/:cid',
+            views: {
+                'tab-home': {
+                    templateUrl: 'templates/shop-items.html',
+                    controller: 'ItemCtrl'
+                }
             }
-        }
-    })
+        })
+        .state('tab.product', {
+            url: '/dash/categories/product/:pid',
+            views: {
+                'tab-dash': {
+                    templateUrl: 'templates/shop-product.html',
+                    controller: 'ProductCtrl'
+                }
+            }
+        })
 
     .state('tab.productwish', {
             url: '/account/wishlist/product/:pid',
@@ -262,14 +270,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
 
 
 .filter('imagepath', function () {
-  return function (input) {
-      if(input.slice(0,3)=="gs:"){
-          return "http://magicmirrornew.appspot.com/showimage?size=300&image="+input.trim();
-      }else{
-          return "http://magicmirrornew.appspot.com/showimage?size=300&image=gs://magicmirroruploads/uploads/"+input.trim();
-      }
-  };
-})
+        return function (input) {
+            if (input.slice(0, 3) == "gs:") {
+                return "http://magicmirrornew.appspot.com/showimage?size=300&image=" + input.trim();
+            } else {
+                return "http://magicmirrornew.appspot.com/showimage?size=300&image=gs://magicmirroruploads/uploads/" + input.trim();
+            }
+        };
+    })
     .filter('imagepathbig', function () {
         return function (input) {
             return "http://magicmirrornew.appspot.com/showimage?size=800&image=gs://magicmirroruploads/uploads/" + input.trim();
