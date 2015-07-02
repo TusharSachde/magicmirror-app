@@ -43,10 +43,10 @@
     <!--iOS-->
     <!-- iOS 8.0+ -->
     <!-- iPhone 6 Plus  -->
-    <icon src="icon/ios/icon-60@3x.png" gap:platform="ios" width="180" height="180" />
+    <icon src="icon/ios/Icon-60@3x.png" gap:platform="ios" width="180" height="180" />
     <!-- iOS 7.0+ -->
     <!-- iPhone / iPod Touch  -->
-    <icon src="icon/ios/icon-60.png" gap:platform="ios" width="60" height="60" />
+    <icon src="icon/ios/Icon-60.png" gap:platform="ios" width="60" height="60" />
     <icon src="icon/ios/icon-60@2x.png" gap:platform="ios" width="120" height="120" />
     <icon src="icon/ios/icon-60@3x.png" gap:platform="ios" width="180" height="180" />
     <!-- iPad -->

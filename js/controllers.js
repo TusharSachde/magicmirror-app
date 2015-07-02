@@ -169,6 +169,7 @@ angular.module('starter.controllers', ['myservices'])
     var counter = 0;
     $scope.products = [];
     $scope.pageno = 1;
+    $scope.loadshow = true;
     var onsuccess = function(data, status) {
         console.log(data);
         for (var i = 0; i < data.queryresult.length; i++) {
@@ -179,8 +180,9 @@ angular.module('starter.controllers', ['myservices'])
         
         if (data.lastpage > $scope.pageno) {
             $scope.pageno = $scope.pageno + 1;
-        } else {
             $scope.$broadcast('scroll.infiniteScrollComplete');
+        } else {
+            $scope.loadshow = false;
         }
         
         console.log($scope.productItem);
@@ -212,7 +214,7 @@ angular.module('starter.controllers', ['myservices'])
         // counter += change + 1;
         // $scope.$broadcast('scroll.infiniteScrollComplete');
     };
-    $scope.loadMore();
+//    $scope.loadMore();
     $ionicModal.fromTemplateUrl('templates/filter.html', {
         id: '1',
         scope: $scope,
@@ -263,7 +265,8 @@ angular.module('starter.controllers', ['myservices'])
     
     $scope.orderbychange = function (filter) {
             console.log(filter);
-            MyServices.setfilter(filter);
+            $scope.filter.orderby = filter;
+            MyServices.setfilter($scope.filter);
             $scope.productItem = [];
             $scope.modal2.hide();
             MyServices.getproductbycategory(categoryId).success(onsuccess);
