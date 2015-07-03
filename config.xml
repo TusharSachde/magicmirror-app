@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.magicmirror" version="1.0.0" versionCode="1">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.magicmirror.magicmirror" version="1.0.0" versionCode="1">
     <name>Magic Mirror</name>
     <description>Magic Mirror</description>
-    <author href="http://www.wohlig.com" email="info@wohlig.com">Wohlig</author>
+    <author href="http://magicmirror.in/" email="info@magicmirror.in ">Magic Mirror</author>
     <gap:platform name="ios" />
     <gap:platform name="android" />
     <preference name="phonegap-version" value="3.5.0" />
@@ -28,25 +28,26 @@
     <preference name="DisallowOverscroll" value="true" />
 
     <!--Android-->
-    <icon src="icon/android/drawable-ldpi/icon.png" gap:platform="android" density="ldpi" />
-    <icon src="icon/android/drawable-mdpi/icon.png" gap:platform="android" density="mdpi" />
-    <icon src="icon/android/drawable-hdpi/icon.png" gap:platform="android" density="hdpi" />
-    <icon src="icon/android/drawable-xhdpi/icon.png" gap:platform="android" density="xhdpi" />
-    <icon src="icon/android/drawable-xxhdpi/icon.png" gap:platform="android" density="xxhdpi" />
-<!--    <icon src="icon/android/drawable-xxxhdpi/icon.png" gap:platform="android" density="xxxhdpi" />-->
-
-    <gap:splash src="icon/android/drawable-hdpi/screen.png" gap:platform="android" density="port-hdpi" />
-    <gap:splash src="icon/android/drawable-ldpi/screen.png" gap:platform="android" density="port-ldpi" />
-    <gap:splash src="icon/android/drawable-mdpi/screen.png" gap:platform="android" density="port-mdpi" />
-    <gap:splash src="icon/android/drawable-xhdpi/screen.png" gap:platform="android" density="port-xhdpi" />
+ <platform name="android">
+        <icon src="icon/android/drawable-ldpi/icon.png" density="ldpi" />
+        <icon src="icon/android/drawable-mdpi/icon.png" density="mdpi" />
+        <icon src="icon/android/drawable-hdpi/icon.png" density="hdpi" />
+        <icon src="icon/android/drawable-xhdpi/icon.png" density="xhdpi" />
+        <icon src="icon/android/drawable-xxhdpi/icon.png" density="xxhdpi" />
+    </platform>
+   <icon src="img/icon.png" />
+    <gap:splash src="screen/android/drawable-hdpi/screen.png" gap:platform="android" density="port-hdpi" />
+    <gap:splash src="screen/android/drawable-ldpi/screen.png" gap:platform="android" density="port-ldpi" />
+    <gap:splash src="screen/android/drawable-mdpi/screen.png" gap:platform="android" density="port-mdpi" />
+    <gap:splash src="screen/android/drawable-xhdpi/screen.png" gap:platform="android" density="port-xhdpi" />
 
     <!--iOS-->
     <!-- iOS 8.0+ -->
     <!-- iPhone 6 Plus  -->
-    <icon src="icon/ios/Icon-60@3x.png" gap:platform="ios" width="180" height="180" />
+    <icon src="icon/ios/icon-60@3x.png" gap:platform="ios" width="180" height="180" />
     <!-- iOS 7.0+ -->
     <!-- iPhone / iPod Touch  -->
-    <icon src="icon/ios/Icon-60.png" gap:platform="ios" width="60" height="60" />
+    <icon src="icon/ios/icon-60.png" gap:platform="ios" width="60" height="60" />
     <icon src="icon/ios/icon-60@2x.png" gap:platform="ios" width="120" height="120" />
     <icon src="icon/ios/icon-60@3x.png" gap:platform="ios" width="180" height="180" />
     <!-- iPad -->
@@ -81,7 +82,7 @@
     <gap:splash src="screen/ios/Default-1242@3x~iphone6s-portrait_1242x2208.png" gap:platform="ios" width="1242" height="2208" />
     
     <!--Default icon & splash-->
-    <icon src="icon/android/drawable-xxxhdpi/screen.png" />
+    <icon src="screen/android/drawable-xxhdpi/screen.png" />
     <gap:splash src="screen/ios/Default-750@2x~iphone6-portrait_750x1334.png" />
     
     
