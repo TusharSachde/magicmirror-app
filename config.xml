@@ -34,6 +34,7 @@
         <icon src="icon/android/drawable-hdpi/icon.png" density="hdpi" />
         <icon src="icon/android/drawable-xhdpi/icon.png" density="xhdpi" />
         <icon src="icon/android/drawable-xxhdpi/icon.png" density="xxhdpi" />
+        <icon src="icon/android/drawable-xxxhdpi/icon.png" density="xxxhdpi" />
     </platform>
    <icon src="img/icon.png" />
     <gap:splash src="screen/android/drawable-hdpi/screen.png" gap:platform="android" density="port-hdpi" />
