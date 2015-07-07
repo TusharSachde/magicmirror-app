@@ -531,3 +531,7 @@ label.item.item-input.range-item {
 input.range-input.ng-pristine.ng-valid {
     margin: 0 5px;
 }
+
+.scroll .row .col-33 {
+    position: relative;
+}
