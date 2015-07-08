@@ -6,7 +6,13 @@
                 <img ng-src="{{product.image|imagepath}}">
                 <h2>{{product.name}}</h2>
                 <h3 class="royal">{{product.price|convertprice}}</h3>
-                <p><strong>Quantity:</strong> {{product.qty}}</p>
+                <strong>Quantity:</strong>
+                <span class="cartspace" ng-hide="newquantity[$index]!=1"></span>
+                <span class="btn btn-default carticon" ng-click="subproductcart(product.id,product.name,product.price,newquantity[$index],$index)" ng-show="newquantity[$index]!=1">-</span>
+                <input type="text" ng-model="newquantity[$index]" class="form-control cartinput" readonly>
+                <span class="btn btn-default carticon" ng-click="addproductcart(product.id,product.name,product.price,newquantity[$index],$index)">+</span> &nbsp; &nbsp;
+                <div class="hidden btn btn-primary" ng-click="addtcart(product.id,product.name,product.price,newquantity[$index],$index)"><strong><span class="glyphicon glyphicon-floppy-save"></span></strong></div>
+
                 <button class="button button-clear button-assertive button-small" ng-click="deletecart(product.id)">REMOVE</button>
             </a>
             <div class="item item-divider">Discount</div>
@@ -19,22 +25,19 @@
                 </button>
             </div>
             <a class="item item-icon-left" href="#">
-                <i class="icon ion-ios7-pricetag"></i>
-                Subtotal Amount
+                <i class="icon ion-ios7-pricetag"></i> Subtotal Amount
                 <span class="item-note">
                     {{subtotal|convertprice}}
                 </span>
             </a>
             <a class="item item-icon-left" href="#">
-                <i class="icon ion-ios7-pricetag"></i>
-                Discounted Amount
+                <i class="icon ion-ios7-pricetag"></i> Discounted Amount
                 <span class="item-note">
                      {{discountamount|convertprice}}
                 </span>
             </a>
             <a class="item item-icon-left">
-                <i class="icon ion-ios7-cart"></i>
-                Total Amount
+                <i class="icon ion-ios7-cart"></i> Total Amount
                 <span class="item-note">
                      {{subtotal-discountamount|convertprice}}
                 </span>

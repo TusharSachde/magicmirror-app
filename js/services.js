@@ -127,6 +127,7 @@ var myservices = angular.module('myservices', [])
     var retailer = 0;
     var category = 0;
     var useremail = "";
+    var totalproducts = 0;
      var filters = {
         color: "",
         pricemin: 0,
@@ -190,6 +191,7 @@ var myservices = angular.module('myservices', [])
             });
         },
         addtocart: function (id, name, price, quantity) {
+            console.log("id="+id+"name="+name+"price="+price+"quantity="+quantity);
             return $http.post(adminurl + 'addtocart?product=' + id + '&productname=' + name + "&quantity=" + quantity + "&price=" + price, {}, {
                 withCredentials: true
             });
@@ -249,7 +251,7 @@ var myservices = angular.module('myservices', [])
         },
         gettotalproductsincart: function (data, status) {
             console.log(data);
-            TemplateService.totalproducts = data;
+            totalproducts = data;
             return 0;
         },
         usercontact: function (id, name, email, phone, comment) {
