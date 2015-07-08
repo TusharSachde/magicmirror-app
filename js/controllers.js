@@ -521,7 +521,32 @@ angular.module('starter.controllers', ['myservices'])
     };
     MyServices.getcart().success(onsuccess);
     //coupon
+    
+     var deletefromcart = function () {
+            MyServices.gettotalcart().success(MyServices.gettotalproductsincart);
+            MyServices.totalcart().success(getsubtotal);
+            console.log("Subtotal should change");
+        };
 
+     $scope.deletecart = function (id) {
+            //console.log(cart);
+            for (var i = 0; i < $scope.cart.length; i++) {
+                if ($scope.cart[i].id == id) {
+                    $scope.cart.splice(i, 1);
+                }
+            }
+            //console.log(cart);
+            $scope.subtotal = 0;
+            console.log($scope.cart);
+            for (var i = 0; i < $scope.cart.length; i++) {
+                $scope.subtotal += parseInt($scope.cart[i].qty) * parseFloat($scope.cart[i].price);
+            }
+
+            MyServices.deletecartfromsession(id).success(deletefromcart);
+
+        };
+    
+    
     //Loader
     $ionicLoading.show({
         template: 'Loading...',
@@ -611,16 +636,16 @@ angular.module('starter.controllers', ['myservices'])
     };
 
     //Remove item
-    var ondeletesuccess = function () {
-        MyServices.getcart().success(onsuccess);
-        MyServices.gettotalcart().success(totalcartsuccess);
-    };
-    $scope.deletecart = function (id) {
-        MyServices.deletecartfromsession(id).success(ondeletesuccess);
-        //get total cart
-
-
-    };
+//    var ondeletesuccess = function () {
+//        MyServices.getcart().success(onsuccess);
+//        MyServices.gettotalcart().success(totalcartsuccess);
+//    };
+//    $scope.deletecart = function (id) {
+//        MyServices.deletecartfromsession(id).success(ondeletesuccess);
+//        //get total cart
+//
+//
+//    };
 
     //Total
     var ontotalsuccess = function (data, status) {

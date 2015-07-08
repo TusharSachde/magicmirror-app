@@ -551,3 +551,7 @@ input.range-input.ng-pristine.ng-valid {
     padding: 0px;
     display: inline-block!important;
 }
+.list .item.activated{
+    border-color: #ccc;
+  background-color: #FFFFFF;
+}
