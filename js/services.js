@@ -325,6 +325,11 @@ var myservices = angular.module('myservices', [])
                 withCredentials: true
             });
         },
+        checkStatus: function (orderid, statuscallback) {
+            $http.get(adminurl + "checkorderstatus?orderid=" + orderid, {},{
+                withCredentials: true
+            }).success(statuscallback);
+        },
         getallslider: function (user) {
             return $http.get(adminurl + 'getallslider');
         },

@@ -1,3 +1,4 @@
+var ref = 0;
 angular.module('starter.controllers', ['myservices'])
 
 .controller('TabCtrl', function ($scope, $stateParams, MyServices) {
@@ -694,7 +695,7 @@ angular.module('starter.controllers', ['myservices'])
 
 })
 
-.controller('CheckoutCtrl', function ($scope, MyServices) {
+.controller('CheckoutCtrl', function ($scope, MyServices,$interval) {
 
     $scope.showpaywithcard = false;
     $scope.showplaceorder = true;
@@ -1291,6 +1292,40 @@ angular.module('starter.controllers', ['myservices'])
     var orderemailsend = function (data, status) {
         console.log(data);
         //alert("Email send");
+    };
+    
+    
+    
+    //NEW CHECKOUT
+    
+    var stopinterval = 0;
+    var checkstate = function (data, status) {
+		console.log(data);
+		if (data == "1") {
+			console.log("Facebook Login");
+			$interval.cancel(stopinterval);
+			ref.close();
+		} else {
+			console.log("Do nothing");
+		}
+	};
+
+	var callAtInterval = function () {
+		console.log("hey hey in inerval");
+		MyServices.checkStatus($scope.payment.orderid, checkstate);
+	};
+    
+    $scope.newCheckout = function(){
+        console.log($scope.payment);
+        console.log($scope.form);
+			//JAGRUTI PAYUMONEY
+			ref = window.open("http://www.magicmirror.in/paymentgateway/paymentgateway.php?orderid=" + $scope.payment.orderid + "&amount=" +$scope.payment.amount +  "&firstname=" + $scope.form.firstname + "&lastname=" + $scope.form.lastname + "&billingaddress=" + $scope.form.billingaddress + "&billingstate=" + $scope.form.billingstate+ "&billingcity=" + $scope.form.billingcity+ "&billingpincode=" + $scope.form.billingpincode+ "&phone=" + $scope.form.phone+ "&email=" + $scope.form.email+ "&shippingname=" + $scope.form.shippingname+ "&shippingaddress=" + $scope.form.shippingaddress+ "&shippingcity=" + $scope.form.shippingcity+ "&shippingstate=" + $scope.form.shippingstate+ "&shippingpincode=" + $scope.form.shippingpincode+ "&shippingtel=" + $scope.form.shippingtel , '_blank', 'location=no');
+
+			stopinterval = $interval(callAtInterval, 2000);
+			ref.addEventListener('exit', function (event) {
+				$interval.cancel(stopinterval);
+			});
+
     };
 
 
