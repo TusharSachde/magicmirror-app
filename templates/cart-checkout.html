@@ -312,22 +312,22 @@
         <div ng-show="diffadd">
             <div class="item item-divider">Ship To This Address</div>
 
-            <label class="item item-input">
+            <label class="item item-input" ng-init="form.shippingname=''">
                 <input type="text" placeholder="Shipping Name*" ng-model="form.shippingname" ng-class="allvalidation[10].validation" required>
             </label>
-            <label class="item item-input">
+            <label class="item item-input" ng-init="form.shippingtel=''">
                 <input type="tel" placeholder="Telephone*" ng-model="form.shippingtel" ng-class="allvalidation[11].validation" required>
             </label>
-            <label class="item item-input">
+            <label class="item item-input" ng-init="form.shippingaddress=''">
                 <textarea placeholder="Address*" ng-model="form.shippingaddress" ng-class="allvalidation[12].validation" required></textarea>
             </label>
-            <label class="item item-input">
+            <label class="item item-input" ng-init="form.shippingcity=''">
                 <input type="text" placeholder="Shipping city*" ng-model="form.shippingcity" ng-class="allvalidation[13].validation" required>
             </label>
-            <label class="item item-input">
+            <label class="item item-input" ng-init="form.shippingstate=''">
                 <input type="text" placeholder="State/Province*" ng-model="form.shippingstate" ng-class="allvalidation[14].validation" required>
             </label>
-            <label class="item item-input">
+            <label class="item item-input" ng-init="form.shippingpincode=''">
                 <input type="text" placeholder="Zip/Postal Code*" ng-model="form.shippingpincode" ng-class="allvalidation[15].validation" required>
             </label>
             <label class="item item-input item-select">
@@ -585,7 +585,7 @@
                     <option value="Zimbabwe">Zimbabwe</option>
                 </select>
             </label>
-            <label class="item item-input">
+            <label class="item item-input" ng-init="form.customernote=''">
                 <textarea placeholder="Customer Notes*" ng-model="form.customernote" ng-class="allvalidation[16].validation" required></textarea>
             </label>
 
@@ -707,6 +707,7 @@
                 
                 
             <label class="item item-input" ng-if="orderplacedid">
+<!--            <label class="item item-input">-->
                 <input type="submit" value="Place Order" class="button button-block button-royal submits" ng-click="newCheckout()">
             </label>
 
