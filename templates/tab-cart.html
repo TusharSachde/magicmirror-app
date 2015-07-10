@@ -8,7 +8,7 @@
                 <h3 class="royal">{{product.price|convertprice}}</h3>
                 <strong>Quantity:</strong>
                 <span class="cartspace" ng-hide="newquantity[$index]!=1"></span>
-                <span class="btn btn-default carticon" ng-click="subproductcart(product.id,product.name,product.price,newquantity[$index],$index)" ng-show="newquantity[$index]!=1">-</span>
+                <span class="btn btn-default carticons" ng-click="subproductcart(product.id,product.name,product.price,newquantity[$index],$index)" ng-show="newquantity[$index]!=1">-</span>
                 <input type="text" ng-model="newquantity[$index]" class="form-control cartinput" readonly>
                 <span class="btn btn-default carticon" ng-click="addproductcart(product.id,product.name,product.price,newquantity[$index],$index)">+</span> &nbsp; &nbsp;
                 <div class="hidden btn btn-primary" ng-click="addtcart(product.id,product.name,product.price,newquantity[$index],$index)"><strong><span class="glyphicon glyphicon-floppy-save"></span></strong></div>

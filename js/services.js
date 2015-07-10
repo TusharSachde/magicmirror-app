@@ -146,8 +146,12 @@ var myservices = angular.module('myservices', [])
         getuseremail: function () {
             return useremail;
         },
+        getjuser: function () {
+            return $.jStorage.get("user");
+        },
         setuseremail: function (user) {
-            useremail = user;
+            useremail = user.useremail;
+            $.jStorage.set("user",user);
         },
         getcoupondetails: function () {
             return coupondetails;
@@ -290,10 +294,10 @@ var myservices = angular.module('myservices', [])
                 withCredentials: true
             });
         },
-        addtowishlist: function (user, product) {
+        addtowishlist: function (user, product,callback) {
             return $http.post(adminurl + 'addtowishlist?user=' + user + '&product=' + product, {}, {
                 withCredentials: true
-            });
+            }).success(callback);
         },
         authenticate: function () {
             return $http.post(adminurl + 'authenticate', {}, {
