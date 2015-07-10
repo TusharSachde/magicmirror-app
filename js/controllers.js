@@ -1356,6 +1356,7 @@ angular.module('starter.controllers', ['myservices'])
 
 .controller('LoginCtrl', function($scope, $location, MyServices) {
     //Authenticate
+    $scope.demo = "demo";
     $scope.useremail = 0;
     //$scope.android="Android";
 
