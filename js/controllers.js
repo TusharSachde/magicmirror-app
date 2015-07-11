@@ -278,7 +278,10 @@ angular.module('starter.controllers', ['myservices'])
     //addtowishlist
 
     $scope.userid = '';
-    $scope.userid = MyServices.getjuser().id;
+	
+    if (MyServices.getjuser() && MyServices.getjuser != "") {
+        $scope.useremail = MyServices.getjuser().email;
+    }
 
     $scope.showbutton = $state.current.name;
 
