@@ -276,14 +276,14 @@ angular.module('starter.controllers', ['myservices'])
 
 .controller('ProductCtrl', function($scope, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, $ionicLoading, MyServices, $location, $state) {
     //addtowishlist
-    
+
     $scope.userid = '';
     $scope.userid = MyServices.getjuser().id;
 
     $scope.showbutton = $state.current.name;
 
     $scope.addtowishlist = function() {
-        MyServices.addtowishlist($scope.userid, $scope.item.product.id,function(data, status){
+        MyServices.addtowishlist($scope.userid, $scope.item.product.id, function(data, status) {
             console.log(data);
         });
         $scope.wishlistPopup();
@@ -429,17 +429,17 @@ angular.module('starter.controllers', ['myservices'])
     //get wishlist
     $scope.wishlists = [];
     $scope.userid = MyServices.getjuser().id;
-    
-    
+
+
     var onwishlistsuccess = function(data, status) {
         console.log(data);
         $scope.wishlists = data;
     }
-//    var authenticate = function(data, status) {
-//        $scope.userid = data.id;
-        MyServices.showwishlist($scope.userid).success(onwishlistsuccess);
-//    };
-//    MyServices.authenticate().success(authenticate);
+    //    var authenticate = function(data, status) {
+    //        $scope.userid = data.id;
+    MyServices.showwishlist($scope.userid).success(onwishlistsuccess);
+    //    };
+    //    MyServices.authenticate().success(authenticate);
 
 
 })
@@ -1358,6 +1358,7 @@ angular.module('starter.controllers', ['myservices'])
     //Authenticate
     $scope.demo = "demo";
     $scope.useremail = 0;
+    $scope.login = [];
     //$scope.android="Android";
 
     var cartdata = function(data, status) {};
@@ -1367,7 +1368,7 @@ angular.module('starter.controllers', ['myservices'])
         if (data != "false") {
             $scope.loginlogouttext = "Logout";
             $scope.getlogin2 = false;
-//            $scope.useremail = data.email;
+            //            $scope.useremail = data.email;
         }
     };
     MyServices.authenticate().success(authenticate);
@@ -1380,8 +1381,10 @@ angular.module('starter.controllers', ['myservices'])
     //login
     $scope.emptydata = "";
     $scope.getlogin2 = true;
-    $scope.useremail = MyServices.getjuser().email;
-    if($scope.useremail!=0){
+    if (MyServices.getjuser() && MyServices.getjuser != "") {
+        $scope.useremail = MyServices.getjuser().email;
+    }
+    if ($scope.useremail != 0) {
         $scope.getlogin2 = false;
     }
 
