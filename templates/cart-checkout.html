@@ -290,7 +290,7 @@
                 Ship to different address
             </button>
         </div>
-<!--
+        <!--
         <div ng-show="orcontinue">
             <div style="text-align: center;color: #A3A3A3;">
                 OR
@@ -668,8 +668,7 @@
                 <p><strong>Quantity:</strong> {{product.qty}}</p>
             </a>
             <a class="item item-icon-left">
-                <i class="icon ion-ios7-cart"></i>
-                Total Amount
+                <i class="icon ion-ios7-cart"></i> Total Amount
                 <span class="item-note">
                     {{subtotal+form.shippingcost-discountamount|convertprice}}
                 </span>
@@ -678,7 +677,7 @@
 
         </div>
 
-<!--
+        <!--
         <form action="http://magicmirror.in/paymentgateway/index.php" method="post" style="padding-top:20px;">
                 <input type="text" name="orderid" ng-model="payment.orderid" style="display:none;">
                 <input type="text" name="amount" ng-model="payment.amount" style="display:none;">
@@ -686,8 +685,8 @@
                                     <input type="text" name="lastname" ng-model="form.lastname" style="display:none">
                                     <input type="text" name="billingaddress" ng-model="form.billingaddress" style="display:none">
 -->
-<!--                                    <input type="text" name="billingcountry" ng-model="form.billingcountry" style="display:none">-->
-<!--
+        <!--                                    <input type="text" name="billingcountry" ng-model="form.billingcountry" style="display:none">-->
+        <!--
                                     <input type="text" name="billingstate" ng-model="form.billingstate" style="display:none">
                                     <input type="text" name="billingcity" ng-model="form.billingcity" style="display:none">
                                     <input type="text" name="billingpincode" ng-model="form.billingpincode" style="display:none">
@@ -696,22 +695,29 @@
                                     <input type="text" name="shippingname" ng-model="form.shippingname" style="display:none">
                                     <input type="text" name="shippingaddress" ng-model="form.shippingaddress" style="display:none">
 -->
-<!--                                    <input type="text" name="shippingcountry" ng-model="form.shippingcountry" style="display:none">-->
-<!--
+        <!--                                    <input type="text" name="shippingcountry" ng-model="form.shippingcountry" style="display:none">-->
+        <!--
                                     <input type="text" name="shippingcity" ng-model="form.shippingcity" style="display:none">
                                     <input type="text" name="shippingstate" ng-model="form.shippingstate" style="display:none">
                                     <input type="text" name="shippingpincode" ng-model="form.shippingpincode" style="display:none">
                                     <input type="text" name="shippingtel" ng-model="form.shippingtel" style="display:none">
 -->
-                
-                
-                
+
+
+
+        <!--
             <label class="item item-input" ng-if="orderplacedid">
-<!--            <label class="item item-input">-->
+            <label class="item item-input">
                 <input type="submit" value="Place Order" class="button button-block button-royal submits" ng-click="newCheckout()">
             </label>
+-->
+        <div class="padding" ng-if="orderplacedid">
+            <button type="submit" class="button button-block button-royal" ng-click="newCheckout()">
+                Place Order
+            </button>
+        </div>
 
-<!--        </form>-->
+        <!--        </form>-->
         <!-- listing -->
 
         <script>

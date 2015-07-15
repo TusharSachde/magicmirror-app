@@ -1,13 +1,24 @@
 var ref = 0;
 angular.module('starter.controllers', ['myservices'])
 
-.controller('TabCtrl', function($scope, $stateParams, MyServices) {
+.controller('TabCtrl', function($scope, $stateParams, MyServices,$ionicPopup, $timeout) {
     //get total cart
     var totalcartsuccess = function(data, status) {
         MyServices.setobj(parseInt(data));
         $scope.obj = MyServices.getobj();
     }
     MyServices.gettotalcart().success(totalcartsuccess);
+    
+    //popup for cart
+    
+     $scope.showAlert = function() {
+   var alertPopup = $ionicPopup.show({
+     title: 'Your Cart is Empty',
+   });
+         $timeout(function() {
+     alertPopup.close(); //close the popup after 3 seconds for some reason
+  }, 2000);
+ };
 })
 
 .controller('HomeCtrl', function($scope, $stateParams, MyServices) {
@@ -15,6 +26,9 @@ angular.module('starter.controllers', ['myservices'])
     var slidersuccess = function(data, status) {
         $scope.sliders = data;
     };
+    
+    
+
     MyServices.getallslider().success(slidersuccess);
 
     $scope.sliderss = [{
