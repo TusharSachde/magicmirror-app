@@ -1,5 +1,5 @@
 var adminurl = 'http://www.magicmirror.in/admin/index.php/json/';
-
+var refreshhome = 0;
 var conversionrate = [{
     id: "1",
     name: "GBP",
@@ -128,7 +128,7 @@ var myservices = angular.module('myservices', [])
     var category = 0;
     var useremail = "";
     var totalproducts = 0;
-     var filters = {
+    var filters = {
         color: "",
         pricemin: 0,
         pricemax: 500000,
@@ -151,7 +151,7 @@ var myservices = angular.module('myservices', [])
         },
         setuseremail: function (user) {
             useremail = user.useremail;
-            $.jStorage.set("user",user);
+            $.jStorage.set("user", user);
         },
         getcoupondetails: function () {
             return coupondetails;
@@ -165,10 +165,10 @@ var myservices = angular.module('myservices', [])
                 withCredentials: true
             });
         },
-        getfilters: function() {
+        getfilters: function () {
             return filters;
         },
-        setfilter: function(filter) {
+        setfilter: function (filter) {
             filters = filter;
         },
         getproductdetails: function (product, category) {
@@ -195,7 +195,7 @@ var myservices = angular.module('myservices', [])
             });
         },
         addtocart: function (id, name, price, quantity) {
-            console.log("id="+id+"name="+name+"price="+price+"quantity="+quantity);
+            console.log("id=" + id + "name=" + name + "price=" + price + "quantity=" + quantity);
             return $http.post(adminurl + 'addtocart?product=' + id + '&productname=' + name + "&quantity=" + quantity + "&price=" + price, {}, {
                 withCredentials: true
             });
@@ -294,7 +294,7 @@ var myservices = angular.module('myservices', [])
                 withCredentials: true
             });
         },
-        addtowishlist: function (user, product,callback) {
+        addtowishlist: function (user, product, callback) {
             return $http.post(adminurl + 'addtowishlist?user=' + user + '&product=' + product, {}, {
                 withCredentials: true
             }).success(callback);
@@ -305,12 +305,20 @@ var myservices = angular.module('myservices', [])
             });
         },
         registeruser: function (firstname, lastname, email, password) {
-            return $http.post(adminurl + 'registeruser', {firstname:firstname,lastname:lastname,email:email,password:password}, {}, {
+            return $http.post(adminurl + 'registeruser', {
+                firstname: firstname,
+                lastname: lastname,
+                email: email,
+                password: password
+            }, {}, {
                 withCredentials: true
             });
         },
         loginuser: function (email, password) {
-            return $http.post(adminurl + 'loginuser',{email:email,password:password}, {}, {
+            return $http.post(adminurl + 'loginuser', {
+                email: email,
+                password: password
+            }, {}, {
                 withCredentials: true
             });
         },
@@ -330,7 +338,7 @@ var myservices = angular.module('myservices', [])
             });
         },
         checkStatus: function (orderid, statuscallback) {
-            $http.get(adminurl + "checkorderstatus?orderid=" + orderid, {},{
+            $http.get(adminurl + "checkorderstatus?orderid=" + orderid, {}, {
                 withCredentials: true
             }).success(statuscallback);
         },

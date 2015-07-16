@@ -1,34 +1,36 @@
 var ref = 0;
 angular.module('starter.controllers', ['myservices'])
 
-.controller('TabCtrl', function($scope, $stateParams, MyServices,$ionicPopup, $timeout) {
+.controller('TabCtrl', function ($scope, $stateParams, MyServices, $ionicPopup, $timeout) {
     //get total cart
-    var totalcartsuccess = function(data, status) {
+    var totalcartsuccess = function (data, status) {
         MyServices.setobj(parseInt(data));
         $scope.obj = MyServices.getobj();
     }
     MyServices.gettotalcart().success(totalcartsuccess);
-    
+
     //popup for cart
-    
-     $scope.showAlert = function() {
-   var alertPopup = $ionicPopup.show({
-     title: 'Your Cart is Empty',
-   });
-         $timeout(function() {
-     alertPopup.close(); //close the popup after 3 seconds for some reason
-  }, 2000);
- };
+
+    $scope.showAlert = function () {
+        var alertPopup = $ionicPopup.show({
+            title: 'Your Cart is Empty',
+        });
+        $timeout(function () {
+            alertPopup.close(); //close the popup after 3 seconds for some reason
+        }, 2000);
+    };
 })
 
-.controller('HomeCtrl', function($scope, $stateParams, MyServices) {
+.controller('HomeCtrl', function ($scope, $stateParams, MyServices, $window) {
 
-    var slidersuccess = function(data, status) {
+    if (refreshhome == 1) {
+        refreshhome = 0;
+        $window.location.reload(true);
+    }
+
+    var slidersuccess = function (data, status) {
         $scope.sliders = data;
     };
-    
-    
-
     MyServices.getallslider().success(slidersuccess);
 
     $scope.sliderss = [{
@@ -94,14 +96,14 @@ angular.module('starter.controllers', ['myservices'])
     }];
 
     //newsletter
-    var newslettersaved = function(data, status) {
+    var newslettersaved = function (data, status) {
         if (data == "true") {
             console.log("Thank You For Subscribe");
         } else {
             console.log("No Thank You For Subscribe");
         }
     };
-    $scope.newsletter = function(uemail) {
+    $scope.newsletter = function (uemail) {
         if (!uemail) {
             alert("Please Enter Email");
         } else {
@@ -112,9 +114,9 @@ angular.module('starter.controllers', ['myservices'])
 
 })
 
-.controller('DashCtrl', function($scope, $stateParams, MyServices, $location, $anchorScroll) {
+.controller('DashCtrl', function ($scope, $stateParams, MyServices, $location, $anchorScroll) {
 
-    var authenticate = function(data, status) {
+    var authenticate = function (data, status) {
         console.log(data);
         if (data != "false") {
             $scope.loginlogouttext = "Logout";
@@ -135,7 +137,7 @@ angular.module('starter.controllers', ['myservices'])
 
 
 
-.controller('ItemCtrl', function($scope, $stateParams, MyServices, $ionicModal) {
+.controller('ItemCtrl', function ($scope, $stateParams, MyServices, $ionicModal) {
 
     $scope.filter = {
         color: "",
@@ -158,7 +160,7 @@ angular.module('starter.controllers', ['myservices'])
     //    });
     //    console.log($scope.dashvar);
 
-    var authenticate = function(data, status) {
+    var authenticate = function (data, status) {
         console.log(data);
         if (data != "false") {
             $scope.loginlogouttext = "Logout";
@@ -167,7 +169,7 @@ angular.module('starter.controllers', ['myservices'])
     $scope.imagewidth = {};
     $scope.imagewidth.width = window.innerWidth / 3 - 15;
 
-    $(window).resize(function() {
+    $(window).resize(function () {
         $scope.imagewidth.width = window.innerWidth / 3 - 15;
         console.log("Resized is called");
         $scope.$apply();
@@ -185,7 +187,7 @@ angular.module('starter.controllers', ['myservices'])
     $scope.products = [];
     $scope.pageno = 1;
     $scope.loadshow = true;
-    var onsuccess = function(data, status) {
+    var onsuccess = function (data, status) {
         console.log(data);
         for (var i = 0; i < data.queryresult.length; i++) {
 
@@ -202,7 +204,7 @@ angular.module('starter.controllers', ['myservices'])
 
         console.log($scope.productItem);
 
-        $scope.minimum = _.max($scope.productItem, function(prod) {
+        $scope.minimum = _.max($scope.productItem, function (prod) {
             return prod.price;
         });
 
@@ -212,7 +214,7 @@ angular.module('starter.controllers', ['myservices'])
     };
     MyServices.getproductbycategory(categoryId).success(onsuccess);
     var oldpage = 1;
-    $scope.loadMore = function() {
+    $scope.loadMore = function () {
 
         console.log("ADD MORE: " + oldpage);
         if (oldpage != $scope.pageno) {
@@ -234,16 +236,16 @@ angular.module('starter.controllers', ['myservices'])
         id: '1',
         scope: $scope,
         animation: 'slide-in-up'
-    }).then(function(modal) {
+    }).then(function (modal) {
         $scope.modal1 = modal;
     });
 
-    $scope.openfilter = function() {
+    $scope.openfilter = function () {
         $scope.modal2.show();
         console.log("1");
     };
 
-    $scope.closefilter = function() {
+    $scope.closefilter = function () {
         $scope.modal1.hide();
     };
 
@@ -251,23 +253,23 @@ angular.module('starter.controllers', ['myservices'])
         id: '2',
         scope: $scope,
         animation: 'slide-in-up'
-    }).then(function(modal) {
+    }).then(function (modal) {
         $scope.modal2 = modal;
     });
 
-    $scope.opensort = function() {
+    $scope.opensort = function () {
         $scope.modal1.show();
         console.log("2");
     };
 
-    $scope.closesort = function() {
+    $scope.closesort = function () {
         $scope.modal2.hide();
     };
 
 
     //FILTER SAVE
 
-    $scope.filtersave = function(filter) {
+    $scope.filtersave = function (filter) {
         console.log("before filte");
         console.log(filter);
         MyServices.setfilter(filter);
@@ -278,7 +280,7 @@ angular.module('starter.controllers', ['myservices'])
         MyServices.getproductbycategory(categoryId).success(onsuccess);
     };
 
-    $scope.orderbychange = function(filter) {
+    $scope.orderbychange = function (filter) {
         console.log(filter);
         $scope.filter.orderby = filter;
         MyServices.setfilter($scope.filter);
@@ -288,32 +290,32 @@ angular.module('starter.controllers', ['myservices'])
     };
 })
 
-.controller('ProductCtrl', function($scope, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, $ionicLoading, MyServices, $location, $state) {
+.controller('ProductCtrl', function ($scope, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, $ionicLoading, MyServices, $location, $state) {
     //addtowishlist
 
     $scope.userid = '';
-	
+
     if (MyServices.getjuser() && MyServices.getjuser != "") {
         $scope.useremail = MyServices.getjuser().email;
     }
 
     $scope.showbutton = $state.current.name;
 
-    $scope.addtowishlist = function() {
-        MyServices.addtowishlist($scope.userid, $scope.item.product.id, function(data, status) {
+    $scope.addtowishlist = function () {
+        MyServices.addtowishlist($scope.userid, $scope.item.product.id, function (data, status) {
             console.log(data);
         });
         $scope.wishlistPopup();
     }
 
-    var authenticate = function(data, status) {
+    var authenticate = function (data, status) {
         console.log("authenticate");
         console.log(data);
         $scope.userid = data.id;
     };
     MyServices.authenticate().success(authenticate);
     //addtowishlist popup
-    $scope.wishlistPopup = function() {
+    $scope.wishlistPopup = function () {
         $scope.data = {}
 
         // An elaborate, custom popup
@@ -323,14 +325,14 @@ angular.module('starter.controllers', ['myservices'])
             scope: $scope,
 
         });
-        $timeout(function() {
+        $timeout(function () {
             myPopup.close(); //close the popup after 3 seconds for some reason
         }, 1500);
     };
 
 
     //addtocart popup
-    $scope.showPopup = function() {
+    $scope.showPopup = function () {
         $scope.data = {}
 
         // An elaborate, custom popup
@@ -340,7 +342,7 @@ angular.module('starter.controllers', ['myservices'])
             scope: $scope,
 
         });
-        $timeout(function() {
+        $timeout(function () {
             myPopup.close(); //close the popup after 3 seconds for some reason
         }, 1500);
     };
@@ -356,23 +358,23 @@ angular.module('starter.controllers', ['myservices'])
 
     var productId = $stateParams.pid;
 
-    var onsuccess = function(data, status) {
+    var onsuccess = function (data, status) {
         $scope.item = data;
         $scope.item.product.quantity2 = 1;
         console.log(data);
     };
     MyServices.getproductdetails(productId).success(onsuccess);
 
-    var totalcartsuccess = function(data, status) {
+    var totalcartsuccess = function (data, status) {
         MyServices.setobj(parseInt(data));
         $scope.obj = MyServices.getobj();
     }
-    var cartsuccess = function() {
+    var cartsuccess = function () {
         MyServices.gettotalcart().success(totalcartsuccess);
 
     };
     //Add to cart
-    $scope.addtocart = function(id, name, price, quantity) {
+    $scope.addtocart = function (id, name, price, quantity) {
         MyServices.addtocart(id, name, price, quantity).success(cartsuccess);
         $scope.showPopup();
         //get total cart
@@ -380,29 +382,29 @@ angular.module('starter.controllers', ['myservices'])
     };
 
     //SLIDE BOX
-    $scope.nextSlide = function() {
+    $scope.nextSlide = function () {
         $ionicSlideBoxDelegate.next();
     };
-    $scope.prevSlide = function() {
+    $scope.prevSlide = function () {
         $ionicSlideBoxDelegate.previous();
     };
-    $timeout(function() {
+    $timeout(function () {
         $ionicSlideBoxDelegate.update();
         $ionicLoading.hide();
     }, 2000);
 
-    var changelocation = function(data) {
+    var changelocation = function (data) {
         $location.url("/tab/dash/categories/product/" + data.id);
     };
-    $scope.next = function(product) {
+    $scope.next = function (product) {
         MyServices.nextproduct(product, 1).success(changelocation);
     };
-    $scope.previous = function(product) {
+    $scope.previous = function (product) {
         MyServices.nextproduct(product, 0).success(changelocation);
     };
 
     //share this popup
-    $scope.sharePopup = function() {
+    $scope.sharePopup = function () {
         $scope.data = {}
 
         // An elaborate, custom popup
@@ -412,7 +414,7 @@ angular.module('starter.controllers', ['myservices'])
             scope: $scope,
 
         });
-        $scope.closeShare = function() {
+        $scope.closeShare = function () {
             myPopup.close();
         };
     };
@@ -421,7 +423,7 @@ angular.module('starter.controllers', ['myservices'])
 })
 
 
-.controller('ShareProductCtrl', function($scope, $stateParams, MyServices) {
+.controller('ShareProductCtrl', function ($scope, $stateParams, MyServices) {
     //get share it
     //console.log("Chutia banauya");
     stButtons.makeButtons();
@@ -435,25 +437,25 @@ angular.module('starter.controllers', ['myservices'])
 })
 
 
-.controller('ThankyouCtrl', function($scope, $stateParams, MyServices) {
+.controller('ThankyouCtrl', function ($scope, $stateParams, MyServices) {
     //get share it
     //console.log("Chutia banauya");
 
 })
 
 
-.controller('WishlistCtrl', function($scope, $stateParams, MyServices) {
+.controller('WishlistCtrl', function ($scope, $stateParams, MyServices) {
     //get wishlist
     $scope.wishlists = [];
     $scope.userid = MyServices.getjuser().id;
 
 
-    var onwishlistsuccess = function(data, status) {
-        console.log(data);
-        $scope.wishlists = data;
-    }
-    //    var authenticate = function(data, status) {
-    //        $scope.userid = data.id;
+    var onwishlistsuccess = function (data, status) {
+            console.log(data);
+            $scope.wishlists = data;
+        }
+        //    var authenticate = function(data, status) {
+        //        $scope.userid = data.id;
     MyServices.showwishlist($scope.userid).success(onwishlistsuccess);
     //    };
     //    MyServices.authenticate().success(authenticate);
@@ -461,21 +463,21 @@ angular.module('starter.controllers', ['myservices'])
 
 })
 
-.controller('AccountCtrl', function($scope) {
-
-})
-    .controller('WelcomeCtrl', function($scope) {
+.controller('AccountCtrl', function ($scope) {
 
     })
-    .controller('MissuniCtrl', function($scope) {
+    .controller('WelcomeCtrl', function ($scope) {
+
+    })
+    .controller('MissuniCtrl', function ($scope) {
 
     })
 
-.controller('CartCtrl', function($scope, $stateParams, MyServices, $ionicLoading) {
+.controller('CartCtrl', function ($scope, $stateParams, MyServices, $ionicLoading) {
     //Product details
     $scope.subtotal = 0;
     $scope.cart = [];
-    var onproductsuccess = function(data, status) {
+    var onproductsuccess = function (data, status) {
 
         for (var i = 0; i < $scope.products.length; i++) {
             if ($scope.products[i].id == data.product.id) {
@@ -484,9 +486,16 @@ angular.module('starter.controllers', ['myservices'])
         }
     };
 
+    $scope.gotocheckout = function () {
+        if ($.jStorage.get("user").logged_in && $.jStorage.get("user").logged_in == "true") {
+            $location.url("/#/tab/cart/checkout");
+        } else {
+            $location.url("/#/tab/account/login");
+        }
+    }
 
     $scope.newquantity = [];
-    var showcart = function(data, status) {
+    var showcart = function (data, status) {
         console.log(data);
         $scope.cart = data;
         console.log("Values in cart");
@@ -502,7 +511,7 @@ angular.module('starter.controllers', ['myservices'])
     };
     MyServices.getcart().success(showcart);
 
-    var getsubtotal = function(data, status) {
+    var getsubtotal = function (data, status) {
         console.log(data);
         $scope.subtotal = parseFloat(data);
         calcdiscountamount();
@@ -511,25 +520,25 @@ angular.module('starter.controllers', ['myservices'])
     //    var getsubtotal = function (data, status) {
     //        $scope.subtotal = data;
     //    };
-    var cartt = function(data, status) {
+    var cartt = function (data, status) {
         console.log(data);
         MyServices.gettotalcart().success(MyServices.gettotalproductsincart);
         MyServices.totalcart().success(getsubtotal);
     };
-    $scope.addtocart = function(id, name, price, quantity, index) {
+    $scope.addtocart = function (id, name, price, quantity, index) {
         // console.log(id+name+price+quantity);
         $scope.cart[index].subtotal = price * quantity;
         MyServices.addtocart(id, name, price, quantity).success(cartt);
     };
 
-    $scope.subproductcart = function(id, name, price, quantity, index) {
+    $scope.subproductcart = function (id, name, price, quantity, index) {
         console.log(id + name + price + quantity);
         quantity = parseInt(quantity) - 1;
         $scope.newquantity[index] = quantity;
         $scope.cart[index].subtotal = price * quantity;
         MyServices.addtocart(id, name, price, quantity).success(cartt);
     };
-    $scope.addproductcart = function(id, name, price, quantity, index) {
+    $scope.addproductcart = function (id, name, price, quantity, index) {
         //        console.log(id + name + price + quantity);
         console.log("id=" + id + "name=" + name + "price=" + price + "quantity=" + quantity);
         quantity = parseInt(quantity) + 1;
@@ -539,7 +548,7 @@ angular.module('starter.controllers', ['myservices'])
     };
 
     MyServices.totalcart().success(getsubtotal);
-    var onsuccess = function(data, status) {
+    var onsuccess = function (data, status) {
         $ionicLoading.hide();
         $scope.products = data;
         $scope.cart = data;
@@ -551,13 +560,13 @@ angular.module('starter.controllers', ['myservices'])
     MyServices.getcart().success(onsuccess);
     //coupon
 
-    var deletefromcart = function() {
+    var deletefromcart = function () {
         MyServices.gettotalcart().success(MyServices.gettotalproductsincart);
         MyServices.totalcart().success(getsubtotal);
         console.log("Subtotal should change");
     };
 
-    $scope.deletecart = function(id) {
+    $scope.deletecart = function (id) {
         //console.log(cart);
         for (var i = 0; i < $scope.cart.length; i++) {
             if ($scope.cart[i].id == id) {
@@ -605,19 +614,19 @@ angular.module('starter.controllers', ['myservices'])
             console.log($scope.cart);
 
             var totallength = 0;
-            _.each($scope.cart, function(cart) {
+            _.each($scope.cart, function (cart) {
                 totallength += parseInt(cart.qty);
             });
             var xproducts = parseInt(data.xproducts);
             var yproducts = parseInt(data.yproducts);
             var itter = Math.floor(totallength / xproducts) * yproducts;
             console.log("ITTER " + itter);
-            var newcart = _.sortBy($scope.cart, function(cart) {
+            var newcart = _.sortBy($scope.cart, function (cart) {
                 cart.price = parseFloat(cart.price);
                 cart.qty2 = parseInt(cart.qty);
                 return parseFloat(cart.price);
             });
-            var newcart = _.sortBy($scope.cart, function(cart) {
+            var newcart = _.sortBy($scope.cart, function (cart) {
                 cart.price = parseFloat(cart.price);
                 cart.qty2 = parseInt(cart.qty);
                 return parseFloat(cart.price);
@@ -641,7 +650,7 @@ angular.module('starter.controllers', ['myservices'])
     };
 
 
-    var couponsuccess = function(data, status) {
+    var couponsuccess = function (data, status) {
         console.log(data);
         if (data == 'false') {
             //$scope.validcouponcode = 0;
@@ -657,10 +666,10 @@ angular.module('starter.controllers', ['myservices'])
 
 
 
-    $scope.checkcoupon = function(couponcode) {
+    $scope.checkcoupon = function (couponcode) {
         MyServices.getdiscountcoupon(couponcode).success(couponsuccess);
     };
-    var totalcartsuccess = function(data, status) {
+    var totalcartsuccess = function (data, status) {
         MyServices.setobj(parseInt(data));
     };
 
@@ -677,14 +686,14 @@ angular.module('starter.controllers', ['myservices'])
     //    };
 
     //Total
-    var ontotalsuccess = function(data, status) {
+    var ontotalsuccess = function (data, status) {
         $scope.gettotal = data;
     };
     MyServices.totalcart().success(ontotalsuccess);
 
 })
 
-.controller('ContactCtrl', function($scope, $ionicPopup, $timeout, MyServices) {
+.controller('ContactCtrl', function ($scope, $ionicPopup, $timeout, MyServices) {
 
     $scope.contact = {
         name: "",
@@ -692,7 +701,7 @@ angular.module('starter.controllers', ['myservices'])
         email: "",
         comment: ""
     };
-    $scope.showPopup = function() {
+    $scope.showPopup = function () {
 
         // An elaborate, custom popup
         var myPopup = $ionicPopup.show({
@@ -701,12 +710,12 @@ angular.module('starter.controllers', ['myservices'])
             scope: $scope,
 
         });
-        $timeout(function() {
+        $timeout(function () {
             myPopup.close(); //close the popup after 1.5 seconds for some reason
         }, 1500);
     };
 
-    var contactfun = function(data, status) {
+    var contactfun = function (data, status) {
         console.log(data);
         $scope.contact = {
             name: "",
@@ -715,7 +724,7 @@ angular.module('starter.controllers', ['myservices'])
             comment: ""
         };
     };
-    $scope.usercontact = function(data) {
+    $scope.usercontact = function (data) {
 
         MyServices.usercontact("", data.name, data.email, data.phone, data.comment).success(contactfun);
         $scope.showPopup();
@@ -723,12 +732,12 @@ angular.module('starter.controllers', ['myservices'])
 
 })
 
-.controller('CheckoutCtrl', function($scope, MyServices, $interval, $ionicLoading) {
+.controller('CheckoutCtrl', function ($scope, MyServices, $interval, $ionicLoading) {
 
     $scope.showpaywithcard = false;
     $scope.showplaceorder = true;
     $scope.cart = [];
-    var onsuccess = function(data, status) {
+    var onsuccess = function (data, status) {
         $scope.products = data;
         $scope.cart = data;
         for (var i = 0; i < data.length; i++) {
@@ -737,7 +746,7 @@ angular.module('starter.controllers', ['myservices'])
 
     };
     MyServices.getcart().success(onsuccess);
-    var ontotalsuccess = function(data, status) {
+    var ontotalsuccess = function (data, status) {
         $scope.gettotal = data;
     };
     MyServices.totalcart().success(ontotalsuccess);
@@ -753,7 +762,7 @@ angular.module('starter.controllers', ['myservices'])
     $scope.paymentorderid = 0;
 
 
-    $scope.continueformshipping = function() {
+    $scope.continueformshipping = function () {
 
 
         $scope.allvalidation = [{
@@ -805,7 +814,7 @@ angular.module('starter.controllers', ['myservices'])
         }
 
     };
-    $scope.continuenoshipping = function() {
+    $scope.continuenoshipping = function () {
 
 
         $scope.allvalidation = [{
@@ -852,12 +861,12 @@ angular.module('starter.controllers', ['myservices'])
 
 
     };
-    $scope.hidediffaddress = function() {
+    $scope.hidediffaddress = function () {
 
         $scope.diffadd = false;
         $scope.orcontinue = true;
     }
-    $scope.showdiffaddress = function() {
+    $scope.showdiffaddress = function () {
 
 
         $scope.allvalidation = [{
@@ -928,7 +937,7 @@ angular.module('starter.controllers', ['myservices'])
     $scope.orderid = 0;
     $scope.amount = 0;
     //place order on countinue
-    var orderplaced = function(data, status) {
+    var orderplaced = function (data, status) {
         console.log("place order returns");
         console.log(data);
         $scope.orderplacedid = true;
@@ -939,7 +948,7 @@ angular.module('starter.controllers', ['myservices'])
         console.log($scope.payment);
         $ionicLoading.hide();
     };
-    $scope.continuepayment = function(form) {
+    $scope.continuepayment = function (form) {
         if ($scope.diffadd == true) {
             $scope.allvalidation = [{
                 field: $scope.form.firstname,
@@ -1073,19 +1082,19 @@ angular.module('starter.controllers', ['myservices'])
             console.log($scope.cart);
 
             var totallength = 0;
-            _.each($scope.cart, function(cart) {
+            _.each($scope.cart, function (cart) {
                 totallength += parseInt(cart.qty);
             });
             var xproducts = parseInt(data.xproducts);
             var yproducts = parseInt(data.yproducts);
             var itter = Math.floor(totallength / xproducts) * yproducts;
             console.log("ITTER " + itter);
-            var newcart = _.sortBy($scope.cart, function(cart) {
+            var newcart = _.sortBy($scope.cart, function (cart) {
                 cart.price = parseFloat(cart.price);
                 cart.qty2 = parseInt(cart.qty);
                 return parseFloat(cart.price);
             });
-            var newcart = _.sortBy($scope.cart, function(cart) {
+            var newcart = _.sortBy($scope.cart, function (cart) {
                 cart.price = parseFloat(cart.price);
                 cart.qty2 = parseInt(cart.qty);
                 return parseFloat(cart.price);
@@ -1109,7 +1118,7 @@ angular.module('starter.controllers', ['myservices'])
     };
 
     //check out chart
-    var onproductsuccess = function(data, status) {
+    var onproductsuccess = function (data, status) {
         for (var i = 0; i < $scope.products.length; i++) {
             if ($scope.products[i].id == data.product.id) {
                 $scope.products[i].image = data.productimage[0].image;
@@ -1117,7 +1126,7 @@ angular.module('starter.controllers', ['myservices'])
         }
     };
 
-    var onsuccess = function(data, status) {
+    var onsuccess = function (data, status) {
         $scope.products = data;
 
         for (var i = 0; i < data.length; i++) {
@@ -1155,7 +1164,7 @@ angular.module('starter.controllers', ['myservices'])
     //    };
 
     $scope.newquantity = [];
-    var showcart = function(data, status) {
+    var showcart = function (data, status) {
         console.log(data);
         $scope.cart = data;
         console.log($scope.cart[0].qty);
@@ -1167,7 +1176,7 @@ angular.module('starter.controllers', ['myservices'])
         }
     };
     MyServices.getcart().success(showcart);
-    var getsubtotal = function(data, status) {
+    var getsubtotal = function (data, status) {
         console.log(data);
         $scope.subtotal = parseFloat(data);
         calcdiscountamount();
@@ -1175,7 +1184,7 @@ angular.module('starter.controllers', ['myservices'])
     };
     MyServices.totalcart().success(getsubtotal);
     // free
-    $scope.free = function(country, subtotal, shipping) {
+    $scope.free = function (country, subtotal, shipping) {
         console.log("MAaaaza");
         console.log(country);
         console.log(subtotal);
@@ -1216,7 +1225,7 @@ angular.module('starter.controllers', ['myservices'])
         }
 
     };
-    $scope.free2 = function(country, subtotal, shipping) {
+    $scope.free2 = function (country, subtotal, shipping) {
         console.log(country);
         console.log(subtotal);
         console.log(shipping);
@@ -1256,12 +1265,12 @@ angular.module('starter.controllers', ['myservices'])
     };
     // free
     $scope.form.shippingcost = 0;
-    $scope.changeshippingcost = function(value) {
+    $scope.changeshippingcost = function (value) {
         console.log(value);
         $scope.form.shippingcost = value;
     };
 
-    var paymentcomplete = function(data, status) {
+    var paymentcomplete = function (data, status) {
         console.log(data);
         MyServices.orderemail($scope.paymentorderemail, $scope.paymentorderid).success(orderemailsend);
         window.location.href = "http://localhost/lyla-touch/#/tab/thankyou";
@@ -1272,7 +1281,7 @@ angular.module('starter.controllers', ['myservices'])
         //key: 'pk_test_4etgLi16WbODEDr4YBFdcbP0',
         image: 'img/logo.jpg',
         currency: 'GBP',
-        token: function(token) {
+        token: function (token) {
             MyServices.chargestripe(token.id, $scope.form.email, ($scope.subtotal + $scope.form.shippingcost - $scope.discountamount), ($scope.form.firstname + " " + $scope.form.lastname)).success(paymentcomplete);
             //window.location.href="http://www.lylaloves.co.uk/#/thankyou";
             // Use the token to create the charge with a server-side script.
@@ -1303,7 +1312,7 @@ angular.module('starter.controllers', ['myservices'])
     //        MyServices.placeorder(form).success(placeordersuccess);
     //    };
 
-    $scope.StipePaymentGen = function(amount, form) {
+    $scope.StipePaymentGen = function (amount, form) {
         console.log("strippaymentGen form");
 
         $scope.paywithcard = 1;
@@ -1325,7 +1334,7 @@ angular.module('starter.controllers', ['myservices'])
     };
 
     //place order
-    var orderemailsend = function(data, status) {
+    var orderemailsend = function (data, status) {
         console.log(data);
         //alert("Email send");
     };
@@ -1335,7 +1344,7 @@ angular.module('starter.controllers', ['myservices'])
     //NEW CHECKOUT
 
     var stopinterval = 0;
-    var checkstate = function(data, status) {
+    var checkstate = function (data, status) {
         console.log(data);
         if (data == "1") {
             console.log("Facebook Login");
@@ -1346,12 +1355,12 @@ angular.module('starter.controllers', ['myservices'])
         }
     };
 
-    var callAtInterval = function() {
+    var callAtInterval = function () {
         console.log("hey hey in inerval");
         MyServices.checkStatus($scope.payment.orderid, checkstate);
     };
 
-    $scope.newCheckout = function() {
+    $scope.newCheckout = function () {
         console.log($scope.payment);
         console.log($scope.form);
         //JAGRUTI PAYUMONEY
@@ -1362,7 +1371,7 @@ angular.module('starter.controllers', ['myservices'])
         //        ref = window.open("http://magicmirror.in/paymentgetwayfile/index.php?orderid=604&amount=90" , '_blank', 'location=no');
 
         stopinterval = $interval(callAtInterval, 2000);
-        ref.addEventListener('exit', function(event) {
+        ref.addEventListener('exit', function (event) {
             $interval.cancel(stopinterval);
         });
 
@@ -1371,15 +1380,15 @@ angular.module('starter.controllers', ['myservices'])
 
 })
 
-.controller('LoginCtrl', function($scope, $location, MyServices) {
+.controller('LoginCtrl', function ($scope, $location, MyServices) {
     //Authenticate
     $scope.demo = "demo";
     $scope.useremail = 0;
     $scope.login = [];
     //$scope.android="Android";
 
-    var cartdata = function(data, status) {};
-    var authenticate = function(data, status) {
+    var cartdata = function (data, status) {};
+    var authenticate = function (data, status) {
         console.log(data);
         MyServices.getusercart(data.id).success(cartdata);
         if (data != "false") {
@@ -1390,9 +1399,11 @@ angular.module('starter.controllers', ['myservices'])
     };
     MyServices.authenticate().success(authenticate);
 
-    var emailsend = function(data, status) {
+    var emailsend = function (data, status) {
         console.log(data);
-        alert("Email send to you");
+        refreshhome = 1;
+        $location.url('/#/tab/home');
+        //        alert("Email send to you");
     };
 
     //login
@@ -1405,7 +1416,7 @@ angular.module('starter.controllers', ['myservices'])
         $scope.getlogin2 = false;
     }
 
-    var getlogin = function(data, status) {
+    var getlogin = function (data, status) {
         $scope.emptydata = data;
         if (data != "false") {
             //$scope.msg = "Login Successful";
@@ -1420,38 +1431,42 @@ angular.module('starter.controllers', ['myservices'])
         }
     };
 
-    $scope.userlogin = function(login) {
+    $scope.userlogin = function (login) {
         console.log(login);
         MyServices.loginuser(login.email, login.password).success(getlogin);
     };
 
     //logout
-    var logoutsuccess = function(data, status) {
+    var logoutsuccess = function (data, status) {
         if (data != "false") {
             $scope.getlogin2 = true;
             $scope.emptydata = "false";
             MyServices.setuseremail(" ");
         };
     }
-    $scope.logout = function() {
+    $scope.logout = function () {
         MyServices.logout().success(logoutsuccess);
     };
 
     //Signup
-    var getsignup = function(data, status) {
+    var getsignup = function (data, status) {
         if (data != "false") {
-            $scope.msgr = "Registred Successful";
-            $location.url("#/account/login");
+            $scope.msgr = "Registered Successful";
+            //            $location.url("#/account/login");
             MyServices.signupemail(data.email).success(emailsend);
         } else {
             $scope.msgr = "This Email is already registered with us.";
         }
     };
-    $scope.signup = function(register) {
+    $scope.signup = function (register) {
         console.log(register);
-        MyServices.registeruser(register.firstname, register.lastname, register.email, register.password).success(getsignup);
+        if (register.password === register.confirmpassword) {
+            MyServices.registeruser(register.firstname, register.lastname, register.email, register.password).success(getsignup);
+        } else {
+            alert("Passwords doesn't match !!");
+        }
     };
 
 })
 
-.controller('OrderCtrl', function($scope) {});
+.controller('OrderCtrl', function ($scope) {});
