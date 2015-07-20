@@ -1461,6 +1461,10 @@ angular.module('starter.controllers', ['myservices'])
     var getsignup = function (data, status) {
         if (data != "false") {
             $scope.msgr = "Registered Successful";
+            
+            $scope.useremail = data.email;
+            MyServices.setuseremail(data);
+            $scope.getlogin2 = false;
             //            $location.url("#/account/login");
             MyServices.signupemail(data.email).success(emailsend);
         } else {
