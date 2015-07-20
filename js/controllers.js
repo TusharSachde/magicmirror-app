@@ -1,23 +1,32 @@
 var ref = 0;
 angular.module('starter.controllers', ['myservices'])
 
-.controller('TabCtrl', function ($scope, $stateParams, MyServices, $ionicPopup, $timeout) {
+.controller('TabCtrl', function ($scope, $stateParams, MyServices, $ionicPopup, $timeout, $location) {
     //get total cart
+    $scope.obj = 0;
     var totalcartsuccess = function (data, status) {
+        console.log(data);
         MyServices.setobj(parseInt(data));
         $scope.obj = MyServices.getobj();
+        if (data == 0) {
+            var alertPopup = $ionicPopup.show({
+                title: 'Your Cart is Empty',
+            });
+            $timeout(function () {
+                alertPopup.close(); //close the popup after 3 seconds for some reason
+            }, 2000);
+        } else {
+            console.log("else");
+            $location.url("/tab/cart");
+        }
     }
-    MyServices.gettotalcart().success(totalcartsuccess);
+
 
     //popup for cart
 
     $scope.showAlert = function () {
-        var alertPopup = $ionicPopup.show({
-            title: 'Your Cart is Empty',
-        });
-        $timeout(function () {
-            alertPopup.close(); //close the popup after 3 seconds for some reason
-        }, 2000);
+        MyServices.gettotalcart().success(totalcartsuccess);
+
     };
 })
 
@@ -1425,7 +1434,7 @@ angular.module('starter.controllers', ['myservices'])
             $scope.getlogin2 = false;
             $scope.login.email = " ";
             $scope.login.password = " ";
-            //  $location.path('/#/tab/account/login');
+              $location.path('/#/tab/home');
         } else {
             $scope.msg = "Invalid Email Or Password";
         }
