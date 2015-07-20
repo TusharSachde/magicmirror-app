@@ -21,7 +21,8 @@ angular.module('starter.controllers', ['myservices'])
                 }
             }
             $scope.gotocheckout = function () {
-                if ($.jStorage.get("user").logged_in && $.jStorage.get("user").logged_in == "true") {
+			  
+                if ($.jStorage.get("user")) {
                     $location.url("tab/cart/checkout");
                 } else {
                     $location.url("tab/account/login");
@@ -501,7 +502,7 @@ angular.module('starter.controllers', ['myservices'])
             };
 
             $scope.gotocheckout = function () {
-                if ($.jStorage.get("user").logged_in && $.jStorage.get("user").logged_in == "true") {
+                if ($.jStorage.get("user")) {
                     $location.url("tab/cart/checkout");
                 } else {
                     $location.url("tab/account/login");
