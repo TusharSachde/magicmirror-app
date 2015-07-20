@@ -92,23 +92,38 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
             }
         })
         .state('tab.itemshome', {
-            url: '/home/categories/:cid',
+            url: '/home/categoriess/:cid',
             views: {
                 'tab-home': {
-                    templateUrl: 'templates/shop-items.html',
+                    templateUrl: 'templates/shop-items-home.html',
                     controller: 'ItemCtrl'
                 }
             }
         })
-        .state('tab.product', {
-            url: '/dash/categories/product/:pid',
-            views: {
-                'tab-dash': {
-                    templateUrl: 'templates/shop-product.html',
-                    controller: 'ProductCtrl'
+
+        .state('tab.producthomes', {
+                url: '/home/categoriess/producthomes/:pid',
+                views: {
+                    'tab-home': {
+                        templateUrl: 'templates/shop-product-home.html',
+                        controller: 'ProductCtrl'
+                    }
                 }
+            })
+
+
+    .state('tab.product', {
+        url: '/dash/categories/product/:pid',
+        views: {
+            'tab-dash': {
+                templateUrl: 'templates/shop-product.html',
+                controller: 'ProductCtrl'
             }
-        })
+        }
+    })
+
+
+
 
     .state('tab.productwish', {
             url: '/account/wishlist/product/:pid',
@@ -279,7 +294,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
         };
     })
     .filter('imagepathbig', function () {
-    return function (input) {
+        return function (input) {
             if (input.slice(0, 3) == "gs:") {
                 return "http://magicmirrornew.appspot.com/showimage?size=800&image=" + input.trim();
             } else {
