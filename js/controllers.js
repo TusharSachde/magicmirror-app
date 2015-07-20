@@ -1416,7 +1416,7 @@ angular.module('starter.controllers', ['myservices'])
             var emailsend = function (data, status) {
                 console.log(data);
                 refreshhome = 1;
-                $location.url('/#/tab/home');
+                $location.url('tab/home');
                 //        alert("Email send to you");
             };
 
@@ -1425,6 +1425,7 @@ angular.module('starter.controllers', ['myservices'])
             $scope.getlogin2 = true;
             if (MyServices.getjuser() && MyServices.getjuser != "") {
                 $scope.useremail = MyServices.getjuser().email;
+			  $scope.getlogin2 = true;
             }
             if ($scope.useremail != 0) {
                 $scope.getlogin2 = false;
@@ -1439,8 +1440,9 @@ angular.module('starter.controllers', ['myservices'])
                     $scope.getlogin2 = false;
                     $scope.login.email = " ";
                     $scope.login.password = " ";
-                    $location.path('/#/tab/home');
+                    $location.path('tab/home');
                 } else {
+				 $scope.getlogin2 = false;
                     $scope.msg = "Invalid Email Or Password";
                 }
             };
@@ -1455,7 +1457,7 @@ angular.module('starter.controllers', ['myservices'])
                 if (data != "false") {
                     $scope.getlogin2 = true;
                     $scope.emptydata = "false";
-                    MyServices.setuseremail(" ");
+                    MyServices.setuseremail("");
                 };
             }
             $scope.logout = function () {
