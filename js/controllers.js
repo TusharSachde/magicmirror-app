@@ -390,6 +390,7 @@ angular.module('starter.controllers', ['myservices'])
             };
             //Add to cart
             $scope.addtocart = function (id, name, price, quantity) {
+//			  console.log("********************");
                 MyServices.addtocart(id, name, price, quantity).success(cartsuccess);
                 $scope.showPopup();
                 //get total cart
