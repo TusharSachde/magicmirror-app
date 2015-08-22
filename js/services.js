@@ -45,7 +45,7 @@ var showlocationdata = function (data, status) {
             //case1 : short name: GB
             console.log(country);
             if (country == "IN") {
-                currency = "USD";
+                currency = "INR";
             } else {
                 currency = "USD";
             }
@@ -79,7 +79,7 @@ var ongettingdata = function (data) {
         //case1 : short name: GB
         console.log(country);
         if (country == "IN") {
-            currency = "USD";
+            currency = "INR";
         } else {
             currency = "USD";
         }
