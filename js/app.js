@@ -264,19 +264,23 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
 
 .filter('convertprice', function() {
     return function(input) {
-        var price = parseFloat(input);
+console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+console.log(currency);
+	    var price = parseFloat(input);
         if (price < 0) {
             return 0;
         }
-        var currencyshow = "Rs";
+        var currencyshow = "£";
         for (var i = 0; i < conversionrate.length; i++) {
             if (conversionrate[i].name == currency) {
                 //console.log("currency: "+currency+" price ini: "+price+" price new: "+parseFloat(conversionrate[i].conversionrate)*price);
-                if (currency == "INR") {
-                    currencyshow = "Rs";
-                } else {
+                if (currency == "USD") {
                     currencyshow = "$";
-                }
+                } else if (currency == "EURO") {
+                    currencyshow = "€";
+                }else if(currency == "INR"){
+	 currencyshow = "Rs";
+			 }
                 return currencyshow + " " + (parseFloat(conversionrate[i].conversionrate) * price).toFixed(2);
             }
         }
@@ -332,29 +336,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'myservices'])
     ])
 
 
-.filter('convertprice', function() {
-    return function(input) {
-
-        var price = parseFloat(input);
-        if (price < 0) {
-            return 0;
-        }
-        var currencyshow = "£";
-        for (var i = 0; i < conversionrate.length; i++) {
-            if (conversionrate[i].name == currency) {
-                //console.log("currency: "+currency+" price ini: "+price+" price new: "+parseFloat(conversionrate[i].conversionrate)*price);
-                if (currency == "USD") {
-                    currencyshow = "$";
-                } else if (currency == "EURO") {
-                    currencyshow = "€";
-                }else if(currency == "INR"){
-	 currencyshow = "₹";
-			 }
-                return currencyshow + " " + (parseFloat(conversionrate[i].conversionrate) * price).toFixed(2);
-            }
-        }
-    };
-})
 
 .filter('noFractionCurrency', ['$filter', '$locale',
     function(filter, locale) {
